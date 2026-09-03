@@ -23,7 +23,7 @@ const principles = [
     number: "03",
     title: "LUZ",
     text: "La arquitectura encuentra claridad al revelar el espacio a través de la luz.",
-    image: "/media/luz1.jpeg",
+    image: "/media/luz.jpeg",
   },
 ];
 
@@ -75,16 +75,15 @@ export default function PurposeSection() {
         </ScrollAnimationTrigger>
 
         {/* =========================
-            TÍTULO
+            FRASE PRINCIPAL
         ========================= */}
 
         <ScrollAnimationTrigger
           effect="slide"
           direction="up"
-          threshold={0.12}
+          threshold={0.1}
           once
           duration={0.9}
-          delay={0.1}
         >
           <div className={styles.titleWrapper}>
             <h2 className={styles.title}>
@@ -95,18 +94,25 @@ export default function PurposeSection() {
         </ScrollAnimationTrigger>
 
         {/* =========================
-            DESCRIPCIÓN ACTIVA
+            FRASE DEL PRINCIPIO
         ========================= */}
 
-        <div className={styles.activeDescription}>
-
-          <div className={styles.quoteContent}>
-            <span className={styles.quoteMark} aria-hidden="true">
+        <div
+          className={styles.quoteWrapper}
+          aria-live="polite"
+        >
+          <div
+            key={`${activePrinciple.number}-${activePrinciple.text}`}
+            className={styles.quote}
+          >
+            <span className={styles.quoteOpen} aria-hidden="true">
+              “
             </span>
 
             <p>{activePrinciple.text}</p>
 
-            <span className={styles.quoteMarkEnd} aria-hidden="true">
+            <span className={styles.quoteClose} aria-hidden="true">
+              ”
             </span>
           </div>
         </div>
@@ -160,9 +166,7 @@ export default function PurposeSection() {
                   </span>
 
                   <span
-                    className={
-                      styles.principleIndicator
-                    }
+                    className={styles.principleIndicator}
                     aria-hidden="true"
                   />
                 </button>
