@@ -1,0 +1,453 @@
+.section {
+  position: relative;
+  width: 100%;
+  min-height: 850px;
+  overflow: hidden;
+  background: #163a3b;
+  color: #f5fbf6;
+}
+
+/* =========================================
+   BACKGROUND
+========================================= */
+
+.background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.backgroundImage {
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.01);
+
+  /* SIN BLUR */
+  filter: saturate(0.82) contrast(1.04);
+}
+
+/*
+  Solo oscurecemos ligeramente la fotografía.
+  No hay blur ni backdrop-filter.
+*/
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(22, 58, 59, 0.62) 0%,
+      rgba(22, 58, 59, 0.28) 52%,
+      rgba(22, 58, 59, 0.48) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(22, 58, 59, 0.16) 0%,
+      rgba(22, 58, 59, 0.58) 100%
+    );
+}
+
+/* =========================================
+   WRAPPER
+========================================= */
+
+.wrapper {
+  position: relative;
+  z-index: 2;
+
+  width: min(1240px, calc(100% - 120px));
+  min-height: 850px;
+
+  margin: 0 auto;
+  padding: 95px 0 80px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================
+   HEADING
+========================================= */
+
+.heading {
+  width: min(520px, 48%);
+  margin-left: auto;
+
+  text-align: right;
+}
+
+.eyebrow {
+  display: block;
+
+  margin-bottom: 22px;
+
+  color: #e7d2a6;
+
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+
+  color: #f5fbf6;
+
+  font-family: var(--font-display), serif;
+
+  font-size: clamp(44px, 5vw, 70px);
+  font-weight: 500;
+
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.title span {
+  color: #e7d2a6;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* =========================================
+   CARDS
+========================================= */
+
+.cards {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(170px, 205px));
+
+  justify-content: end;
+
+  gap: 18px;
+
+  margin-top: auto;
+  padding-top: 75px;
+}
+
+.cardAnimation {
+  display: block;
+}
+
+/* =========================================
+   CARD
+========================================= */
+
+.card {
+  position: relative;
+
+  min-height: 285px;
+
+  padding: 20px 22px 25px;
+
+  background: #f5fbf6;
+
+  color: #163a3b;
+
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease,
+    background 300ms ease;
+}
+
+.card:hover {
+  transform: translateY(-7px);
+
+  background: #ffffff;
+
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.22);
+}
+
+/* =========================================
+   ICON
+========================================= */
+
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 16px;
+}
+
+.iconCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 58px;
+  height: 58px;
+
+  border-radius: 50%;
+
+  background: #e5e6e5;
+
+  color: #7f8583;
+}
+
+.iconCircle svg {
+  width: 27px;
+  height: 27px;
+
+  stroke: currentColor;
+  stroke-width: 1.35;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================================
+   NUMBER
+========================================= */
+
+.number {
+  display: block;
+
+  margin-bottom: 13px;
+
+  color: #c6a56a;
+
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+
+  letter-spacing: 0.16em;
+}
+
+/* =========================================
+   CARD TITLE
+========================================= */
+
+.card h3 {
+  margin: 0 0 13px;
+
+  color: #163a3b;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  line-height: 1.35;
+
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* =========================================
+   CARD DESCRIPTION
+========================================= */
+
+.card p {
+  margin: 0;
+
+  color: rgba(22, 58, 59, 0.68);
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 1.65;
+}
+
+/* =========================================
+   CARD DISTRIBUTION
+========================================= */
+
+.card:nth-child(4) {
+  grid-column: 1 / 2;
+}
+
+.card:nth-child(5) {
+  grid-column: 2 / 3;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+  .wrapper {
+    width: min(100% - 80px, 980px);
+  }
+
+  .heading {
+    width: 55%;
+  }
+
+  .cards {
+    grid-template-columns:
+      repeat(3, minmax(155px, 185px));
+
+    gap: 13px;
+  }
+
+  .card {
+    min-height: 270px;
+
+    padding: 18px 18px 22px;
+  }
+
+  .card h3 {
+    font-size: 10px;
+  }
+
+  .card p {
+    font-size: 11px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .section {
+    min-height: auto;
+  }
+
+  .backgroundImage {
+    object-position: center;
+    transform: scale(1);
+  }
+
+  .overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(22, 58, 59, 0.5) 0%,
+        rgba(22, 58, 59, 0.3) 34%,
+        rgba(22, 58, 59, 0.7) 100%
+      );
+  }
+
+  .wrapper {
+    width: calc(100% - 44px);
+
+    min-height: auto;
+
+    padding: 78px 0 60px;
+  }
+
+  .heading {
+    width: 100%;
+    margin-left: 0;
+
+    text-align: left;
+  }
+
+  .eyebrow {
+    margin-bottom: 20px;
+  }
+
+  .title {
+    font-size: clamp(42px, 11vw, 58px);
+  }
+
+  /* =====================================
+     MOBILE CARDS
+  ===================================== */
+
+  .cards {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    justify-content: stretch;
+
+    gap: 12px;
+
+    margin-top: 52px;
+    padding-top: 0;
+  }
+
+  .card:nth-child(4),
+  .card:nth-child(5) {
+    grid-column: auto;
+  }
+
+  .card:nth-child(5) {
+    grid-column: 1 / -1;
+  }
+
+  .card {
+    min-height: 255px;
+
+    padding: 20px 18px 22px;
+  }
+
+  .iconCircle {
+    width: 54px;
+    height: 54px;
+  }
+
+  .iconCircle svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .card h3 {
+    font-size: 10px;
+  }
+
+  .card p {
+    font-size: 11px;
+    line-height: 1.6;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+  .wrapper {
+    width: calc(100% - 32px);
+
+    padding: 66px 0 48px;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+
+    gap: 10px;
+
+    margin-top: 42px;
+  }
+
+  .card,
+  .card:nth-child(5) {
+    grid-column: auto;
+  }
+
+  .card {
+    min-height: auto;
+
+    padding: 22px 20px 24px;
+  }
+
+  .cardIcon {
+    justify-content: flex-start;
+  }
+
+  .iconCircle {
+    width: 52px;
+    height: 52px;
+  }
+
+  .card h3 {
+    font-size: 11px;
+  }
+
+  .card p {
+    font-size: 12px;
+  }
+}

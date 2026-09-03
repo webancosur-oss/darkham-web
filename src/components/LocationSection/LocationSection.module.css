@@ -1,0 +1,1373 @@
+.section {
+  position: relative;
+  width: 100%;
+  min-height: 900px;
+
+  overflow: hidden;
+
+  background: #f5fbf6;
+  color: #163a3b;
+
+  isolation: isolate;
+}
+
+/* =========================================
+   MAP VIEWPORT
+========================================= */
+
+.mapViewport {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+
+  perspective: 2400px;
+  perspective-origin: 60% 46%;
+
+  touch-action: none;
+
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* =========================================
+   MAP CAMERA
+========================================= */
+
+.mapCamera {
+  --camera-focus-x: 0px;
+  --camera-focus-y: 0px;
+  --drag-x: 0px;
+  --drag-y: 0px;
+
+  position: absolute;
+
+  left: 58%;
+  top: 50%;
+
+  width: min(128vw, 1960px);
+
+  aspect-ratio: 1.5;
+
+  transform-style: preserve-3d;
+
+  /*
+   * El centrado se mantiene en una sola
+   * transformación. No hacemos zoom al
+   * seleccionar un pin.
+   */
+  transform:
+    translate(
+      calc(
+        -50% +
+        var(--camera-focus-x) +
+        var(--drag-x)
+      ),
+      calc(
+        -50% +
+        var(--camera-focus-y) +
+        var(--drag-y)
+      )
+    )
+    rotateX(52deg)
+    rotateZ(-0.2deg)
+    scale(0.76);
+
+  transition:
+    transform 1500ms
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    );
+
+  will-change: transform;
+}
+
+.mapCameraDragging {
+  transition: none;
+}
+
+/* =========================================
+   MAP PLANE
+========================================= */
+
+.mapPlane {
+  position: absolute;
+  inset: 0;
+
+  overflow: visible;
+
+  transform-style: preserve-3d;
+}
+
+/* =========================================
+   MAP IMAGE
+========================================= */
+
+.mapImage {
+  object-fit: fill;
+
+  filter:
+    grayscale(1)
+    saturate(0)
+    contrast(0.96)
+    brightness(1.05);
+
+  opacity: 0.9;
+
+  transform:
+    translateZ(-18px);
+
+  pointer-events: none;
+}
+
+/* =========================================
+   MAP OVERLAY
+========================================= */
+
+.mapOverlay {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(245, 251, 246, 0.88) 0%,
+      rgba(245, 251, 246, 0.46) 27%,
+      rgba(245, 251, 246, 0.08) 60%,
+      rgba(245, 251, 246, 0.23) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(245, 251, 246, 0.3) 0%,
+      rgba(245, 251, 246, 0.03) 50%,
+      rgba(245, 251, 246, 0.38) 100%
+    );
+
+  transform:
+    translateZ(2px);
+}
+
+/* =========================================
+   DRAG HINT
+========================================= */
+
+.dragHint {
+  position: absolute;
+
+  left: 50%;
+  bottom: 24px;
+
+  z-index: 15;
+
+  display: none;
+
+  padding:
+    8px 12px;
+
+  border-top:
+    1px solid
+    rgba(22, 58, 59, 0.22);
+
+  color:
+    rgba(22, 58, 59, 0.48);
+
+  font-size: 8px;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+
+  transform:
+    translateX(-50%);
+
+  pointer-events: none;
+}
+
+/* =========================================
+   POINTS
+========================================= */
+
+.points {
+  position: absolute;
+  inset: 0;
+
+  z-index: 10;
+
+  transform:
+    translateZ(35px);
+
+  pointer-events: none;
+}
+
+.point {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 105px;
+  height: 125px;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  transform:
+    translate(-50%, -91%);
+
+  cursor: pointer;
+
+  pointer-events: auto;
+
+  -webkit-tap-highlight-color:
+    transparent;
+
+  transition:
+    transform 420ms
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    );
+}
+
+.point:hover,
+.pointActive {
+  transform:
+    translate(-50%, -96%);
+}
+
+/* =========================================
+   ANCOSUR PIN
+========================================= */
+
+.pointMain {
+  z-index: 10;
+}
+
+.mainShadow {
+  position: absolute;
+
+  left: 50%;
+  bottom: 2px;
+
+  width: 58px;
+  height: 13px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(22, 58, 59, 0.14);
+
+  transform:
+    translateX(-50%)
+    rotateX(65deg);
+}
+
+.mainStem {
+  position: absolute;
+
+  left: 50%;
+  bottom: 13px;
+
+  width: 3px;
+  height: 39px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #c6a56a 0%,
+      #9d7a3f 100%
+    );
+
+  transform:
+    translateX(-50%)
+    translateZ(6px);
+}
+
+.mainBase {
+  position: absolute;
+
+  left: 50%;
+  bottom: 3px;
+
+  width: 46px;
+  height: 46px;
+
+  border:
+    2px solid #f5fbf6;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #dfc78f 0%,
+      #c6a56a 54%,
+      #98733b 100%
+    );
+
+  box-shadow:
+    0 8px 18px
+    rgba(22, 58, 59, 0.16);
+
+  transform:
+    translateX(-50%)
+    rotateX(62deg)
+    translateZ(7px);
+}
+
+.buildingPin {
+  position: absolute;
+
+  left: 50%;
+  bottom: 38px;
+
+  width: 76px;
+  height: 116px;
+
+  transform:
+    translateX(-50%)
+    translateZ(36px);
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 420ms
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    );
+}
+
+.buildingImage {
+  object-fit: contain;
+
+  object-position:
+    center bottom;
+
+  transform:
+    translateZ(16px);
+
+  filter:
+    drop-shadow(
+      0 12px 10px
+      rgba(22, 58, 59, 0.18)
+    );
+}
+
+.pointActive .buildingPin {
+  transform:
+    translateX(-50%)
+    translateZ(48px)
+    scale(1.04);
+}
+
+.mainPulse {
+  position: absolute;
+
+  left: 50%;
+  bottom: -1px;
+
+  width: 66px;
+  height: 28px;
+
+  border:
+    1px solid
+    rgba(198, 165, 106, 0.66);
+
+  border-radius: 50%;
+
+  transform:
+    translateX(-50%)
+    rotateX(62deg);
+
+  animation:
+    mainPinPulse 2.5s ease-out infinite;
+}
+
+/* =========================================
+   REFERENCE PINS
+========================================= */
+
+.pointReference {
+  z-index: 5;
+}
+
+.referenceShadow {
+  position: absolute;
+
+  left: 50%;
+  bottom: 7px;
+
+  width: 34px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(22, 58, 59, 0.14);
+
+  transform:
+    translateX(-50%)
+    rotateX(64deg);
+}
+
+.referenceStem {
+  position: absolute;
+
+  left: 50%;
+  bottom: 12px;
+
+  width: 2px;
+  height: 30px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #215e61,
+      #163a3b
+    );
+
+  transform:
+    translateX(-50%)
+    translateZ(8px);
+}
+
+.referencePin {
+  position: absolute;
+
+  left: 50%;
+  bottom: 37px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  border:
+    1px solid
+    rgba(245, 251, 246, 0.95);
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #438c8d 0%,
+      #215e61 55%,
+      #163a3b 100%
+    );
+
+  box-shadow:
+    4px 6px 0
+      rgba(22, 58, 59, 0.14),
+    0 10px 15px
+      rgba(22, 58, 59, 0.14);
+
+  transform:
+    translateX(-50%)
+    translateZ(27px);
+
+  transition:
+    transform 350ms ease,
+    width 350ms ease,
+    height 350ms ease,
+    background 350ms ease;
+}
+
+.referenceNumber {
+  color: #f5fbf6;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  line-height: 1;
+
+  letter-spacing: 0.04em;
+}
+
+.pointActive .referencePin {
+  width: 44px;
+  height: 44px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #e3ca91 0%,
+      #c6a56a 54%,
+      #98733b 100%
+    );
+
+  transform:
+    translateX(-50%)
+    translateZ(39px)
+    scale(1.03);
+}
+
+.referencePulse {
+  position: absolute;
+
+  left: 50%;
+  bottom: 17px;
+
+  width: 40px;
+  height: 18px;
+
+  border:
+    1px solid
+    rgba(33, 94, 97, 0.38);
+
+  border-radius: 50%;
+
+  transform:
+    translateX(-50%)
+    rotateX(62deg);
+
+  animation:
+    referencePinPulse 2.7s ease-out infinite;
+}
+
+.pointActive .referencePulse {
+  border-color:
+    rgba(198, 165, 106, 0.7);
+}
+
+/* =========================================
+   PIN ANIMATIONS
+========================================= */
+
+@keyframes mainPinPulse {
+  0% {
+    opacity: 0.7;
+
+    transform:
+      translateX(-50%)
+      rotateX(62deg)
+      scale(0.65);
+  }
+
+  70% {
+    opacity: 0;
+
+    transform:
+      translateX(-50%)
+      rotateX(62deg)
+      scale(1.3);
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes referencePinPulse {
+  0% {
+    opacity: 0.6;
+
+    transform:
+      translateX(-50%)
+      rotateX(62deg)
+      scale(0.65);
+  }
+
+  70% {
+    opacity: 0;
+
+    transform:
+      translateX(-50%)
+      rotateX(62deg)
+      scale(1.3);
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+  position: absolute;
+
+  z-index: 20;
+
+  top: 100px;
+
+  left:
+    max(
+      60px,
+      calc((100vw - 1240px) / 2)
+    );
+
+  width: 400px;
+}
+
+.eyebrow {
+  display: block;
+
+  margin-bottom: 21px;
+
+  color: #c6a56a;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  line-height: 1;
+
+  letter-spacing: 0.22em;
+
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+
+  color: #163a3b;
+
+  font-family:
+    var(--font-display),
+    serif;
+
+  font-size:
+    clamp(46px, 5vw, 72px);
+
+  font-weight: 500;
+
+  line-height: 0.95;
+
+  letter-spacing: -0.04em;
+}
+
+.title em {
+  color: #215e61;
+
+  font-style: italic;
+
+  font-weight: 400;
+}
+
+/* =========================================
+   INFO CARD
+========================================= */
+
+.infoCard {
+  position: absolute;
+
+  z-index: 20;
+
+  right:
+    max(
+      60px,
+      calc((100vw - 1240px) / 2)
+    );
+
+  bottom: 96px;
+
+  display: grid;
+
+  grid-template-columns:
+    175px 220px;
+
+  width: 395px;
+
+  min-height: 175px;
+
+  background: #f5fbf6;
+
+  box-shadow:
+    0 18px 44px
+    rgba(22, 58, 59, 0.14);
+}
+
+.imageWrapper {
+  position: relative;
+
+  min-height: 175px;
+
+  overflow: hidden;
+}
+
+.locationImage {
+  object-fit: cover;
+
+  animation:
+    locationImageIn
+    600ms
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    );
+}
+
+@keyframes locationImageIn {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.imageNumber {
+  position: absolute;
+
+  top: 14px;
+  left: 14px;
+
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+
+  text-shadow:
+    0 2px 8px
+    rgba(0, 0, 0, 0.4);
+}
+
+.infoContent {
+  display: flex;
+  flex-direction: column;
+
+  padding:
+    23px 22px 18px;
+}
+
+.infoEyebrow {
+  display: block;
+
+  margin-bottom: 12px;
+
+  color: #c6a56a;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  line-height: 1;
+
+  letter-spacing: 0.16em;
+}
+
+.infoContent h3 {
+  margin: 0 0 11px;
+
+  color: #163a3b;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  line-height: 1.35;
+
+  letter-spacing: 0.05em;
+}
+
+.infoContent p {
+  margin: 0;
+
+  color:
+    rgba(22, 58, 59, 0.62);
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+.infoProgress {
+  width: 100%;
+  height: 1px;
+
+  margin-top: auto;
+  margin-bottom: 12px;
+
+  background:
+    rgba(22, 58, 59, 0.12);
+}
+
+.infoProgress span {
+  display: block;
+
+  height: 100%;
+
+  background: #c6a56a;
+
+  transition:
+    width 500ms ease;
+}
+
+.infoFooter {
+  display: flex;
+
+  gap: 7px;
+
+  color:
+    rgba(22, 58, 59, 0.48);
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+}
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.navigation {
+  position: absolute;
+
+  z-index: 21;
+
+  left:
+    max(
+      60px,
+      calc((100vw - 1240px) / 2)
+    );
+
+  bottom: 68px;
+
+  display: flex;
+
+  width: 435px;
+
+  border-top:
+    1px solid
+    rgba(22, 58, 59, 0.18);
+}
+
+.navigationItem {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  min-width: 0;
+
+  min-height: 37px;
+
+  padding:
+    8px 10px;
+
+  border: 0;
+
+  background:
+    rgba(245, 251, 246, 0.72);
+
+  color:
+    rgba(22, 58, 59, 0.46);
+
+  cursor: pointer;
+
+  transition:
+    background 220ms ease,
+    color 220ms ease;
+}
+
+.navigationItem span {
+  flex: 0 0 auto;
+
+  color: #c6a56a;
+
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.navigationItem strong {
+  overflow: hidden;
+
+  font-size: 7.5px;
+  font-weight: 700;
+
+  line-height: 1.15;
+
+  letter-spacing: 0.035em;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+}
+
+.navigationItem:hover,
+.navigationItemActive {
+  background: #f5fbf6;
+
+  color: #163a3b;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) and (min-width: 769px) {
+  .section {
+    min-height: 820px;
+  }
+
+  .mapViewport {
+    perspective: 2200px;
+  }
+
+  .mapCamera {
+    left: 59%;
+
+    width: max(112vw, 134vh);
+
+    transform:
+      translate(
+        calc(
+          -50% +
+          var(--camera-focus-x) +
+          var(--drag-x)
+        ),
+        calc(
+          -50% +
+          var(--camera-focus-y) +
+          var(--drag-y)
+        )
+      )
+      rotateX(49deg)
+      rotateZ(-0.15deg)
+      scale(0.71);
+  }
+
+  .header {
+    top: 68px;
+    left: 32px;
+
+    width: 320px;
+  }
+
+  .title {
+    font-size:
+      clamp(40px, 5vw, 58px);
+  }
+
+  .point {
+    width: 86px;
+    height: 102px;
+  }
+
+  .buildingPin {
+    width: 56px;
+    height: 86px;
+
+    bottom: 32px;
+  }
+
+  .mainBase {
+    width: 38px;
+    height: 38px;
+  }
+
+  .mainStem {
+    height: 29px;
+  }
+
+  .referencePin {
+    width: 32px;
+    height: 32px;
+
+    bottom: 32px;
+  }
+
+  .pointActive .referencePin {
+    width: 37px;
+    height: 37px;
+  }
+
+  .infoCard {
+    right: 30px;
+
+    bottom: 56px;
+
+    grid-template-columns:
+      126px 176px;
+
+    width: 302px;
+
+    min-height: 126px;
+  }
+
+  .imageWrapper {
+    min-height: 126px;
+  }
+
+  .infoContent {
+    padding:
+      15px 14px 13px;
+  }
+
+  .infoContent h3 {
+    font-size: 9.5px;
+  }
+
+  .infoContent p {
+    font-size: 9px;
+  }
+
+  .navigation {
+    left: 32px;
+    right: 32px;
+
+    bottom: 18px;
+
+    width: auto;
+  }
+
+  .navigationItem {
+    flex: 1;
+
+    justify-content: center;
+
+    padding:
+      7px 5px;
+  }
+
+  .navigationItem strong {
+    font-size: 6.2px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .section {
+    min-height: 850px;
+  }
+
+  .mapViewport {
+    perspective: 1900px;
+    perspective-origin: 53% 42%;
+  }
+
+  .mapCamera {
+    left: 55%;
+
+    width: max(170vw, 135vh);
+
+    transform:
+      translate(
+        calc(
+          -50% +
+          var(--camera-focus-x) +
+          var(--drag-x)
+        ),
+        calc(
+          -50% +
+          var(--camera-focus-y) +
+          var(--drag-y)
+        )
+      )
+      rotateX(48deg)
+      rotateZ(-0.1deg)
+      scale(0.66);
+  }
+
+  .dragHint {
+    display: block;
+  }
+
+  .header {
+    top: 42px;
+
+    left: 20px;
+    right: 20px;
+
+    width: auto;
+  }
+
+  .eyebrow {
+    margin-bottom: 16px;
+  }
+
+  .title {
+    font-size:
+      clamp(36px, 10vw, 52px);
+  }
+
+  .point {
+    width: 70px;
+    height: 84px;
+  }
+
+  .buildingPin {
+    width: 48px;
+    height: 73px;
+
+    bottom: 27px;
+  }
+
+  .mainStem {
+    height: 25px;
+  }
+
+  .mainBase {
+    width: 31px;
+    height: 31px;
+  }
+
+  .referencePin {
+    width: 27px;
+    height: 27px;
+
+    bottom: 27px;
+  }
+
+  .pointActive .referencePin {
+    width: 32px;
+    height: 32px;
+  }
+
+  .referenceNumber {
+    font-size: 7px;
+  }
+
+  .infoCard {
+    left: 20px;
+    right: 20px;
+
+    bottom: 114px;
+
+    grid-template-columns:
+      36% 64%;
+
+    width: auto;
+
+    min-height: 132px;
+  }
+
+  .imageWrapper {
+    min-height: 132px;
+  }
+
+  .infoContent {
+    padding:
+      16px 15px 13px;
+  }
+
+  .infoEyebrow {
+    margin-bottom: 8px;
+
+    font-size: 8px;
+  }
+
+  .infoContent h3 {
+    margin-bottom: 7px;
+
+    font-size: 9.5px;
+  }
+
+  .infoContent p {
+    font-size: 9px;
+  }
+
+  .infoFooter {
+    font-size: 8px;
+  }
+
+  .navigation {
+    left: 20px;
+    right: 20px;
+
+    bottom: 22px;
+
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    width: auto;
+
+    border-top: 0;
+  }
+
+  .navigationItem {
+    min-height: 34px;
+
+    padding:
+      7px 8px;
+  }
+
+  .navigationItem strong {
+    font-size: 6.8px;
+
+    white-space: normal;
+  }
+
+  .navigationItem:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+  .section {
+    min-height: 830px;
+  }
+
+  .mapViewport {
+    perspective: 1800px;
+  }
+
+  .mapCamera {
+    left: 54%;
+
+    width: max(180vw, 140vh);
+
+    transform:
+      translate(
+        calc(
+          -50% +
+          var(--camera-focus-x) +
+          var(--drag-x)
+        ),
+        calc(
+          -50% +
+          var(--camera-focus-y) +
+          var(--drag-y)
+        )
+      )
+      rotateX(46deg)
+      rotateZ(-0.08deg)
+      scale(0.62);
+  }
+
+  .header {
+    top: 37px;
+
+    left: 16px;
+    right: 16px;
+  }
+
+  .title {
+    font-size: 35px;
+  }
+
+  .point {
+    width: 62px;
+    height: 75px;
+  }
+
+  .buildingPin {
+    width: 42px;
+    height: 65px;
+
+    bottom: 24px;
+  }
+
+  .mainBase {
+    width: 28px;
+    height: 28px;
+  }
+
+  .referencePin {
+    width: 24px;
+    height: 24px;
+
+    bottom: 24px;
+  }
+
+  .pointActive .referencePin {
+    width: 29px;
+    height: 29px;
+  }
+
+  .infoCard {
+    left: 16px;
+    right: 16px;
+
+    bottom: 106px;
+
+    grid-template-columns:
+      34% 66%;
+
+    min-height: 125px;
+  }
+
+  .imageWrapper {
+    min-height: 125px;
+  }
+
+  .infoContent {
+    padding:
+      13px 12px 11px;
+  }
+
+  .infoContent h3 {
+    font-size: 9px;
+  }
+
+  .infoContent p {
+    font-size: 8.5px;
+  }
+
+  .navigation {
+    left: 16px;
+    right: 16px;
+
+    bottom: 17px;
+  }
+
+  .navigationItem {
+    min-height: 31px;
+
+    padding:
+      6px 7px;
+  }
+
+  .navigationItem strong {
+    font-size: 6.2px;
+  }
+
+  .dragHint {
+    bottom: 3px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .mapCamera,
+  .point,
+  .buildingPin,
+  .referencePin,
+  .infoProgress span {
+    transition: none;
+  }
+
+  .mainPulse,
+  .referencePulse,
+  .locationImage {
+    animation: none;
+  }
+}

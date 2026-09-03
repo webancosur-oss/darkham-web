@@ -10,7 +10,7 @@ type StudioLoaderProps = {
 };
 
 export default function StudioLoader({
-  duration = 8000,
+  duration = 3000,
 }: StudioLoaderProps) {
   const [progress, setProgress] = useState(0);
   const [isLeaving, setIsLeaving] = useState(false);
