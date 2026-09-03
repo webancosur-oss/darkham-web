@@ -1,0 +1,575 @@
+.card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+  min-height: 610px;
+
+  overflow: hidden;
+
+  padding:
+    30px
+    30px
+    28px;
+
+  border:
+    1px solid
+    rgba(
+      22,
+      58,
+      59,
+      0.16
+    );
+
+  border-radius: 0;
+
+  transition:
+    transform 350ms ease,
+    border-color 350ms ease,
+    background 350ms ease;
+}
+
+.card:hover {
+  transform:
+    translateY(-5px);
+}
+
+/* =========================================
+   VARIANTS
+========================================= */
+
+.light {
+  background:
+    var(--color-background);
+
+  color:
+    var(--color-dark);
+}
+
+.green {
+  background:
+    var(--color-primary);
+
+  border-color:
+    var(--color-primary);
+
+  color:
+    var(--color-background);
+}
+
+.dark {
+  background:
+    var(--color-dark);
+
+  border-color:
+    var(--color-dark);
+
+  color:
+    var(--color-background);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.cardHeader {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 28px;
+}
+
+.number {
+  color:
+    var(--color-accent);
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.18em;
+}
+
+.cardLabel {
+  color:
+    rgba(
+      22,
+      58,
+      59,
+      0.42
+    );
+
+  font-size: 7px;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.18em;
+
+  text-transform:
+    uppercase;
+}
+
+.green .cardLabel,
+.dark .cardLabel {
+  color:
+    rgba(
+      245,
+      251,
+      246,
+      0.45
+    );
+}
+
+/* =========================================
+   NAME
+========================================= */
+
+.name {
+  margin: 0;
+
+  font-size:
+    clamp(
+      42px,
+      4vw,
+      68px
+    );
+
+  font-weight: 500;
+
+  letter-spacing:
+    -0.07em;
+
+  line-height:
+    0.88;
+}
+
+/* =========================================
+   LINE
+========================================= */
+
+.headerLine {
+  display: block;
+
+  width: 55px;
+  height: 1px;
+
+  margin-top: 22px;
+
+  background:
+    var(--color-accent);
+}
+
+/* =========================================
+   INTRO
+========================================= */
+
+.intro {
+  margin:
+    28px
+    0
+    30px;
+
+  color:
+    rgba(
+      22,
+      58,
+      59,
+      0.68
+    );
+
+  font-size:
+    12px;
+
+  line-height:
+    1.72;
+}
+
+.green .intro,
+.dark .intro {
+  color:
+    rgba(
+      245,
+      251,
+      246,
+      0.7
+    );
+}
+
+/* =========================================
+   GROUPS
+========================================= */
+
+.sections {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 27px;
+
+  flex: 1;
+}
+
+.groupTitle {
+  display: block;
+
+  margin-bottom: 13px;
+
+  color:
+    var(--color-accent);
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.17em;
+
+  text-transform:
+    uppercase;
+}
+
+.list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 9px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.list li {
+  position: relative;
+
+  padding-left: 14px;
+
+  color:
+    rgba(
+      22,
+      58,
+      59,
+      0.68
+    );
+
+  font-size:
+    10.5px;
+
+  line-height:
+    1.65;
+}
+
+.list li::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 8px;
+
+  width: 5px;
+  height: 1px;
+
+  background:
+    var(--color-accent);
+}
+
+.green .list li,
+.dark .list li {
+  color:
+    rgba(
+      245,
+      251,
+      246,
+      0.67
+    );
+}
+
+/* =========================================
+   PURPOSE
+========================================= */
+
+.purpose {
+  margin-top: 30px;
+
+  padding-top: 20px;
+
+  border-top:
+    1px solid
+    rgba(
+      22,
+      58,
+      59,
+      0.15
+    );
+}
+
+.green .purpose,
+.dark .purpose {
+  border-top-color:
+    rgba(
+      245,
+      251,
+      246,
+      0.16
+    );
+}
+
+.purposeTitle {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color:
+    var(--color-accent);
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.17em;
+
+  text-transform:
+    uppercase;
+}
+
+.purpose p {
+  margin: 0;
+
+  color:
+    rgba(
+      22,
+      58,
+      59,
+      0.62
+    );
+
+  font-size:
+    10.5px;
+
+  line-height:
+    1.7;
+}
+
+.green .purpose p,
+.dark .purpose p {
+  color:
+    rgba(
+      245,
+      251,
+      246,
+      0.65
+    );
+}
+
+/* =========================================
+   ACTION
+========================================= */
+
+.action {
+  display: flex;
+
+  justify-content: flex-start;
+
+  margin-top: 25px;
+}
+
+/* =========================================
+   CORNER MARK
+========================================= */
+
+.cornerMark {
+  position: absolute;
+
+  right: 20px;
+  bottom: 20px;
+
+  width: 22px;
+  height: 22px;
+
+  pointer-events: none;
+}
+
+.cornerMark::before,
+.cornerMark::after,
+.cornerMark span {
+  position: absolute;
+
+  display: block;
+
+  content: "";
+}
+
+.cornerMark::before {
+  right: 0;
+  bottom: 0;
+
+  width: 1px;
+  height: 22px;
+
+  background:
+    var(--color-accent);
+}
+
+.cornerMark::after {
+  right: 0;
+  bottom: 0;
+
+  width: 22px;
+  height: 1px;
+
+  background:
+    var(--color-accent);
+}
+
+.cornerMark span:first-child {
+  left: 0;
+  top: 0;
+
+  width: 7px;
+  height: 1px;
+
+  background:
+    var(--color-accent);
+}
+
+.cornerMark span:last-child {
+  left: 0;
+  top: 0;
+
+  width: 1px;
+  height: 7px;
+
+  background:
+    var(--color-accent);
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1024px) {
+  .card {
+    min-height: 580px;
+
+    padding:
+      26px
+      24px
+      25px;
+  }
+
+  .name {
+    font-size:
+      clamp(
+        38px,
+        4.5vw,
+        58px
+      );
+  }
+
+  .intro {
+    font-size: 11px;
+  }
+
+  .list li {
+    font-size: 10px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .card {
+    min-height: auto;
+
+    padding:
+      25px
+      22px
+      25px;
+  }
+
+  .name {
+    font-size:
+      clamp(
+        40px,
+        13vw,
+        58px
+      );
+  }
+
+  .intro {
+    font-size: 11px;
+
+    line-height:
+      1.72;
+  }
+
+  .sections {
+    gap: 24px;
+  }
+
+  .list li {
+    font-size: 10px;
+  }
+
+  .purpose {
+    margin-top: 25px;
+  }
+}
+
+/* =========================================
+   MOBILE PEQUEÑO
+========================================= */
+
+@media (max-width: 420px) {
+  .card {
+    padding:
+      22px
+      18px
+      22px;
+  }
+
+  .cardHeader {
+    margin-bottom: 24px;
+  }
+
+  .name {
+    font-size: 38px;
+  }
+
+  .intro {
+    margin-top: 24px;
+
+    font-size: 10.5px;
+  }
+
+  .list li {
+    font-size: 9.5px;
+  }
+
+  .purpose p {
+    font-size: 10px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}

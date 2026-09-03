@@ -1,0 +1,309 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border: 1px solid transparent;
+
+  background: transparent;
+
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+
+  text-transform: uppercase;
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background 280ms ease,
+    color 280ms ease,
+    border-color 280ms ease,
+    transform 280ms ease;
+}
+
+/* =========================================
+   SIZES
+========================================= */
+
+.sm {
+  min-height: 38px;
+  padding: 0 12px;
+
+  font-size: 7px;
+}
+
+.md {
+  min-height: 48px;
+  padding: 0 15px 0 18px;
+
+  font-size: 8px;
+}
+
+.lg {
+  min-height: 58px;
+  padding: 0 18px 0 22px;
+
+  font-size: 9px;
+}
+
+/* =========================================
+   ICON
+========================================= */
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 22px;
+  height: 22px;
+
+  transition:
+    transform 280ms ease;
+}
+
+.icon svg {
+  display: block;
+
+  width: 17px;
+  height: 17px;
+}
+
+.sm .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.sm .icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.lg .icon {
+  width: 26px;
+  height: 26px;
+}
+
+.lg .icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.label {
+  display: block;
+}
+
+/* =========================================
+   ICON POSITION
+========================================= */
+
+.iconRight {
+  flex-direction: row;
+}
+
+.iconLeft {
+  flex-direction: row-reverse;
+}
+
+/* =========================================
+   PRIMARY
+   Verde Darkham
+========================================= */
+
+.primary {
+  border-color: var(--color-primary);
+
+  background: var(--color-primary);
+  color: var(--color-background);
+}
+
+.primary .icon {
+  color: var(--color-accent);
+}
+
+.primary:hover {
+  border-color: var(--color-dark);
+
+  background: var(--color-dark);
+}
+
+/* =========================================
+   DARK
+   Verde oscuro
+========================================= */
+
+.dark {
+  border-color: var(--color-dark);
+
+  background: var(--color-dark);
+  color: var(--color-background);
+}
+
+.dark .icon {
+  color: var(--color-accent);
+}
+
+.dark:hover {
+  border-color: var(--color-primary);
+
+  background: var(--color-primary);
+}
+
+/* =========================================
+   LIGHT
+   Fondo claro
+========================================= */
+
+.light {
+  border-color: var(--color-background);
+
+  background: var(--color-background);
+  color: var(--color-dark);
+}
+
+.light .icon {
+  color: var(--color-accent);
+}
+
+.light:hover {
+  border-color: var(--color-accent);
+
+  background: var(--color-accent);
+  color: var(--color-dark);
+}
+
+/* =========================================
+   ACCENT
+   Dorado
+========================================= */
+
+.accent {
+  border-color: var(--color-accent);
+
+  background: var(--color-accent);
+  color: var(--color-dark);
+}
+
+.accent .icon {
+  color: var(--color-dark);
+}
+
+.accent:hover {
+  border-color: #ad8e55;
+  background: #ad8e55;
+}
+
+/* =========================================
+   OUTLINE
+========================================= */
+
+.outline {
+  border-color: var(--color-primary);
+
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.outline .icon {
+  color: var(--color-accent);
+}
+
+.outline:hover {
+  background: var(--color-primary);
+  color: var(--color-background);
+}
+
+/* =========================================
+   GHOST
+========================================= */
+
+.ghost {
+  border-color: transparent;
+
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.ghost .icon {
+  color: var(--color-accent);
+}
+
+.ghost:hover {
+  background: rgba(33, 94, 97, 0.06);
+}
+
+/* =========================================
+   MOVIMIENTO DEL ICONO
+========================================= */
+
+.iconRight:hover .icon {
+  transform: translateX(4px);
+}
+
+.iconLeft:hover .icon {
+  transform: translateX(-4px);
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .sm {
+    min-height: 36px;
+
+    padding:
+      0 10px;
+
+    font-size: 6.5px;
+  }
+
+  .md {
+    min-height: 46px;
+
+    padding:
+      0 13px
+      0 15px;
+
+    font-size: 7.5px;
+  }
+
+  .lg {
+    min-height: 54px;
+
+    padding:
+      0 15px
+      0 18px;
+
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 420px) {
+  .md {
+    min-height: 44px;
+    font-size: 7px;
+  }
+
+  .lg {
+    min-height: 50px;
+    font-size: 7.5px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .icon {
+    transition: none;
+  }
+}

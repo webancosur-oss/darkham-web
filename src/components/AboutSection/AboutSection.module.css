@@ -1,0 +1,732 @@
+.section {
+  position: relative;
+
+  width: calc(100vw - 74px);
+  min-height: 100svh;
+
+  margin-left: 74px;
+
+  overflow: hidden;
+
+  background: var(--color-background);
+  color: var(--color-dark);
+}
+
+/* =========================================
+   WRAPPER
+========================================= */
+
+.wrapper {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(300px, 0.82fr)
+    minmax(420px, 1.18fr);
+
+  gap: clamp(50px, 7vw, 120px);
+
+  width: 100%;
+  min-height: 100svh;
+
+  padding:
+    120px
+    clamp(44px, 6vw, 110px);
+}
+
+/* =========================================
+   ANIMATION WRAPPER
+========================================= */
+
+.animationFull {
+  width: 100%;
+}
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.imageColumn {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 0;
+}
+
+.imageFrame {
+  position: relative;
+
+  width: min(100%, 470px);
+
+  height: min(
+    74svh,
+    720px
+  );
+
+  overflow: hidden;
+
+  background: var(--color-dark);
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+
+  transform: scale(1.015);
+
+  transition:
+    transform 900ms cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    );
+}
+
+.imageFrame:hover .image {
+  transform: scale(1.04);
+}
+
+.imageOverlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(22, 58, 59, 0) 48%,
+      rgba(22, 58, 59, 0.26) 100%
+    );
+}
+
+.imageLabel {
+  position: absolute;
+
+  left: 20px;
+  bottom: 18px;
+
+  z-index: 2;
+
+  color: rgba(
+    245,
+    251,
+    246,
+    0.82
+  );
+
+  font-size: 8px;
+  font-weight: 500;
+
+  letter-spacing: 0.16em;
+  line-height: 1;
+
+  text-transform: uppercase;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.contentColumn {
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+
+  min-width: 0;
+
+  padding:
+    50px 0
+    40px;
+}
+
+/* =========================================
+   EYEBROW
+========================================= */
+
+.eyebrow {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  width: fit-content;
+
+  margin-bottom: 30px;
+
+  color: var(--color-primary);
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 0.18em;
+  line-height: 1;
+
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+
+  width: 25px;
+  height: 1px;
+
+  flex: 0 0 auto;
+
+  background: var(--color-accent);
+}
+
+/* =========================================
+   TITLE
+========================================= */
+
+.title {
+  max-width: 760px;
+
+  color: var(--color-dark);
+
+  font-size:
+    clamp(
+      52px,
+      6.2vw,
+      105px
+    );
+
+  font-weight: 500;
+
+  letter-spacing: -0.065em;
+  line-height: 0.88;
+}
+
+.title span {
+  color: var(--color-accent);
+}
+
+/* =========================================
+   INTRO
+========================================= */
+
+.introduction {
+  max-width: 610px;
+
+  margin-top: 42px;
+}
+
+.lead {
+  color: var(--color-dark);
+
+  font-size:
+    clamp(
+      18px,
+      1.55vw,
+      25px
+    );
+
+  font-weight: 400;
+
+  letter-spacing: -0.025em;
+  line-height: 1.42;
+}
+
+/* =========================================
+   TEXT
+========================================= */
+
+.textBlock {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 35px;
+
+  max-width: 720px;
+
+  margin-top: 30px;
+}
+
+.textBlock p {
+  color: var(--color-text-muted);
+
+  font-size:
+    clamp(
+      12px,
+      0.86vw,
+      14px
+    );
+
+  line-height: 1.75;
+}
+
+/* =========================================
+   PRINCIPLES
+========================================= */
+
+.principles {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  width: min(
+    560px,
+    100%
+  );
+
+  margin-top: 46px;
+
+  border-top:
+    1px solid
+    var(--color-border);
+
+  border-bottom:
+    1px solid
+    var(--color-border);
+}
+
+.principle {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+  min-height: 78px;
+
+  padding:
+    18px 20px;
+
+  border-right:
+    1px solid
+    var(--color-border);
+}
+
+.principle:last-child {
+  border-right: 0;
+}
+
+.principleNumber {
+  color: var(--color-accent);
+
+  font-size: 8px;
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+.principleText {
+  color: var(--color-dark);
+
+  font-size: 9px;
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+  line-height: 1;
+
+  text-transform: uppercase;
+}
+
+/* =========================================
+   ABOUT BUTTON
+========================================= */
+
+.aboutButton {
+  margin-top: 38px;
+}
+
+/* =========================================
+   BACKGROUND NUMBER
+========================================= */
+
+.backgroundNumberAnimation {
+  position: absolute;
+
+  right: -18px;
+  bottom: -28px;
+
+  z-index: 1;
+
+  display: block;
+
+  width: auto;
+
+  pointer-events: none;
+}
+
+.backgroundNumber {
+  color:
+    rgba(
+      22,
+      58,
+      59,
+      0.055
+    );
+
+  font-size:
+    clamp(
+      250px,
+      32vw,
+      540px
+    );
+
+  font-weight: 600;
+
+  letter-spacing: -0.1em;
+  line-height: 0.75;
+
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* =========================================
+   BOTTOM LINE
+========================================= */
+
+.bottomLine {
+  position: absolute;
+
+  left: 42px;
+  right: 42px;
+  bottom: 24px;
+
+  z-index: 3;
+
+  height: 1px;
+
+  background:
+    var(--color-border);
+}
+
+.bottomLine span {
+  position: absolute;
+
+  left: 0;
+  top: -1px;
+
+  width: 38px;
+  height: 2px;
+
+  background:
+    var(--color-accent);
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1024px) {
+  .section {
+    width: calc(100vw - 64px);
+    margin-left: 64px;
+  }
+
+  .wrapper {
+    grid-template-columns:
+      minmax(250px, 0.8fr)
+      minmax(340px, 1.2fr);
+
+    gap: 48px;
+
+    padding:
+      100px 42px;
+  }
+
+  .imageFrame {
+    width: 100%;
+
+    height: min(
+      68svh,
+      620px
+    );
+  }
+
+  .contentColumn {
+    padding:
+      35px 0
+      30px;
+  }
+
+  .eyebrow {
+    margin-bottom: 24px;
+  }
+
+  .title {
+    font-size:
+      clamp(
+        46px,
+        6.8vw,
+        80px
+      );
+  }
+
+  .lead {
+    font-size:
+      clamp(
+        16px,
+        1.8vw,
+        21px
+      );
+  }
+
+  .introduction {
+    margin-top: 32px;
+  }
+
+  .textBlock {
+    gap: 22px;
+  }
+
+  .principles {
+    margin-top: 34px;
+  }
+
+  .backgroundNumberAnimation {
+    right: -14px;
+    bottom: -22px;
+  }
+
+  .backgroundNumber {
+    font-size:
+      clamp(
+        220px,
+        30vw,
+        420px
+      );
+  }
+
+  .bottomLine {
+    left: 30px;
+    right: 30px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .section {
+    width: 100vw;
+    min-height: auto;
+    margin-left: 0;
+  }
+
+  .wrapper {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 48px;
+
+    min-height: auto;
+
+    padding:
+      92px 22px
+      80px;
+  }
+
+  .imageColumn {
+    width: 100%;
+  }
+
+  .animationFull {
+    width: 100%;
+  }
+
+  .imageFrame {
+    width: 100%;
+
+    height: min(
+      72svh,
+      650px
+    );
+  }
+
+  .contentColumn {
+    padding: 0;
+  }
+
+  .eyebrow {
+    margin-bottom: 22px;
+  }
+
+  .title {
+    font-size:
+      clamp(
+        47px,
+        14vw,
+        74px
+      );
+
+    line-height: 0.9;
+  }
+
+  .introduction {
+    margin-top: 28px;
+  }
+
+  .lead {
+    font-size:
+      clamp(
+        17px,
+        4.5vw,
+        21px
+      );
+
+    line-height: 1.45;
+  }
+
+  .textBlock {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+
+    margin-top: 25px;
+  }
+
+  .textBlock p {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .principles {
+    width: 100%;
+    margin-top: 32px;
+  }
+
+  .principle {
+    min-height: 70px;
+
+    padding:
+      15px 12px;
+  }
+
+  .principleText {
+    font-size: 7px;
+    letter-spacing: 0.08em;
+  }
+
+  .aboutButton {
+    margin-top: 30px;
+  }
+
+  .backgroundNumberAnimation {
+    right: -8px;
+    bottom: -6px;
+  }
+
+  .backgroundNumber {
+    font-size:
+      clamp(
+        180px,
+        55vw,
+        300px
+      );
+  }
+
+  .bottomLine {
+    left: 20px;
+    right: 20px;
+    bottom: 18px;
+  }
+}
+
+/* =========================================
+   MOBILE PEQUEÑO
+========================================= */
+
+@media (max-width: 420px) {
+  .wrapper {
+    padding:
+      82px 16px
+      65px;
+  }
+
+  .imageFrame {
+    height:
+      min(
+        68svh,
+        570px
+      );
+  }
+
+  .eyebrow {
+    font-size: 8px;
+
+    letter-spacing: 0.15em;
+  }
+
+  .title {
+    font-size:
+      clamp(
+        43px,
+        14vw,
+        62px
+      );
+  }
+
+  .lead {
+    font-size: 16px;
+  }
+
+  .textBlock p {
+    font-size: 11px;
+  }
+
+  .principle {
+    min-height: 64px;
+
+    padding:
+      13px 9px;
+  }
+
+  .principleNumber {
+    font-size: 7px;
+  }
+
+  .principleText {
+    font-size: 6.5px;
+  }
+
+  .aboutButton {
+    margin-top: 26px;
+  }
+
+  .backgroundNumberAnimation {
+    right: -5px;
+    bottom: -4px;
+  }
+
+  .backgroundNumber {
+    font-size: 190px;
+  }
+
+  .bottomLine {
+    left: 16px;
+    right: 16px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    transition: none;
+  }
+}

@@ -1,0 +1,532 @@
+.section {
+  position: relative;
+
+  width: calc(100vw - 74px);
+  min-height: 100svh;
+
+  margin-left: 74px;
+
+  overflow: hidden;
+
+  background:
+    var(--color-background);
+
+  color:
+    var(--color-dark);
+}
+
+/* =========================================
+   WRAPPER
+========================================= */
+
+.wrapper {
+  position: relative;
+  z-index: 3;
+
+  width: min(
+    calc(100% - 120px),
+    1380px
+  );
+
+  margin: 0 auto;
+
+  padding:
+    48px 0
+    70px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+  display: flex;
+
+  align-items: center;
+
+  height: 32px;
+
+  border-bottom:
+    1px solid
+    var(--color-border);
+}
+
+.sectionNumber {
+  color:
+    var(--color-accent);
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.18em;
+}
+
+.headerLine {
+  width: 42px;
+  height: 1px;
+
+  margin-left: 17px;
+
+  background:
+    var(--color-accent);
+}
+
+.headerLabel {
+  margin-left: 13px;
+
+  color:
+    rgba(
+      22,
+      58,
+      59,
+      0.58
+    );
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.16em;
+
+  text-transform:
+    uppercase;
+}
+
+.headerRight {
+  margin-left: auto;
+
+  color:
+    rgba(
+      22,
+      58,
+      59,
+      0.35
+    );
+
+  font-size: 7px;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.15em;
+
+  text-transform:
+    uppercase;
+}
+
+/* =========================================
+   HEADING
+========================================= */
+
+.heading {
+  display: grid;
+
+  grid-template-columns:
+    minmax(500px, 1fr)
+    minmax(230px, 300px);
+
+  align-items: end;
+
+  gap: 90px;
+
+  padding:
+    95px
+    0
+    70px;
+}
+
+.eyebrow {
+  display: block;
+
+  margin-bottom: 18px;
+
+  color:
+    var(--color-accent);
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.18em;
+
+  text-transform:
+    uppercase;
+}
+
+.title {
+  margin: 0;
+
+  color:
+    var(--color-dark);
+
+  font-size:
+    clamp(
+      58px,
+      7.6vw,
+      118px
+    );
+
+  font-weight: 500;
+
+  letter-spacing:
+    -0.08em;
+
+  line-height:
+    0.82;
+}
+
+.title span {
+  color:
+    var(--color-primary);
+}
+
+.headingText {
+  max-width: 280px;
+
+  margin: 0;
+
+  color:
+    var(--color-text-muted);
+
+  font-size: 12px;
+
+  line-height:
+    1.85;
+}
+
+/* =========================================
+   CARDS
+========================================= */
+
+.cards {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
+
+  align-items: stretch;
+}
+
+.cardAnimation {
+  display: flex;
+
+  min-width: 0;
+}
+
+.cardAnimation > * {
+  width: 100%;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  margin-top: 42px;
+
+  padding-top: 18px;
+
+  border-top:
+    1px solid
+    var(--color-border);
+}
+
+.footerNumber {
+  color:
+    rgba(
+      22,
+      58,
+      59,
+      0.38
+    );
+
+  font-size: 7px;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.16em;
+}
+
+.footerLine {
+  width: 55px;
+  height: 1px;
+
+  background:
+    var(--color-accent);
+}
+
+.footerText {
+  color:
+    rgba(
+      22,
+      58,
+      59,
+      0.42
+    );
+
+  font-size: 7px;
+
+  letter-spacing:
+    0.18em;
+}
+
+/* =========================================
+   BACKGROUND NUMBER
+========================================= */
+
+.backgroundNumber {
+  position: absolute;
+
+  right: -55px;
+  bottom: -80px;
+
+  z-index: 1;
+
+  color:
+    rgba(
+      33,
+      94,
+      97,
+      0.035
+    );
+
+  font-size:
+    clamp(
+      300px,
+      40vw,
+      650px
+    );
+
+  font-weight: 600;
+
+  letter-spacing:
+    -0.1em;
+
+  line-height:
+    0.75;
+
+  pointer-events: none;
+
+  user-select: none;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1024px) {
+  .section {
+    width:
+      calc(100vw - 64px);
+
+    margin-left: 64px;
+  }
+
+  .wrapper {
+    width:
+      min(
+        calc(100% - 84px),
+        1150px
+      );
+
+    padding:
+      40px
+      0
+      60px;
+  }
+
+  .heading {
+    grid-template-columns:
+      1fr
+      260px;
+
+    gap: 45px;
+
+    padding:
+      80px
+      0
+      60px;
+  }
+
+  .title {
+    font-size:
+      clamp(
+        50px,
+        8vw,
+        88px
+      );
+  }
+
+  .cards {
+    gap: 12px;
+  }
+}
+
+/* =========================================
+   TABLET PEQUEÑA
+========================================= */
+
+@media (max-width: 850px) {
+  .heading {
+    grid-template-columns:
+      1fr;
+
+    gap: 28px;
+  }
+
+  .headingText {
+    max-width: 440px;
+  }
+
+  .cards {
+    grid-template-columns:
+      1fr;
+  }
+
+  .cardAnimation {
+    width: 100%;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .section {
+    width: 100vw;
+
+    margin-left: 0;
+
+    min-height:
+      auto;
+  }
+
+  .wrapper {
+    width: 100%;
+
+    padding:
+      28px
+      22px
+      55px;
+  }
+
+  .headerRight {
+    display: none;
+  }
+
+  .headerLabel {
+    font-size: 7px;
+  }
+
+  .heading {
+    padding:
+      72px
+      0
+      50px;
+  }
+
+  .title {
+    font-size:
+      clamp(
+        47px,
+        14vw,
+        72px
+      );
+  }
+
+  .headingText {
+    max-width: 380px;
+
+    font-size: 11px;
+
+    line-height:
+      1.8;
+  }
+
+  .cards {
+    gap: 14px;
+  }
+
+  .footer {
+    flex-wrap: wrap;
+
+    gap: 10px;
+  }
+
+  .footerText {
+    width: 100%;
+  }
+
+  .backgroundNumber {
+    right: -15px;
+    bottom: -25px;
+
+    font-size:
+      clamp(
+        190px,
+        55vw,
+        320px
+      );
+  }
+}
+
+/* =========================================
+   MOBILE PEQUEÑO
+========================================= */
+
+@media (max-width: 420px) {
+  .wrapper {
+    padding:
+      24px
+      16px
+      50px;
+  }
+
+  .heading {
+    padding:
+      65px
+      0
+      45px;
+  }
+
+  .title {
+    font-size:
+      clamp(
+        43px,
+        14vw,
+        62px
+      );
+  }
+
+  .footerText {
+    font-size: 6px;
+  }
+
+  .backgroundNumber {
+    font-size: 185px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .footer {
+    transition: none;
+  }
+}

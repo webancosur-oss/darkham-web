@@ -1,0 +1,1062 @@
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background: #163a3b;
+  color: #f5fbf6;
+
+  isolation: isolate;
+
+  animation: loaderAppear 500ms ease both;
+}
+
+/* =========================================
+   GRID ARQUITECTÓNICO
+========================================= */
+
+.grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+.grid::before,
+.grid::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(245, 251, 246, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(245, 251, 246, 0.045) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    80px 80px,
+    80px 80px;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      transparent,
+      #000 15%,
+      #000 85%,
+      transparent
+    );
+}
+
+.grid::after {
+  background-size:
+    320px 320px,
+    320px 320px;
+
+  opacity: 0.5;
+}
+
+.gridVerticalOne,
+.gridVerticalTwo,
+.gridHorizontalOne,
+.gridHorizontalTwo {
+  position: absolute;
+
+  background: rgba(245, 251, 246, 0.11);
+
+  pointer-events: none;
+}
+
+.gridVerticalOne,
+.gridVerticalTwo {
+  top: 0;
+  bottom: 0;
+
+  width: 1px;
+}
+
+.gridVerticalOne {
+  left: 12%;
+}
+
+.gridVerticalTwo {
+  right: 12%;
+}
+
+.gridHorizontalOne,
+.gridHorizontalTwo {
+  left: 0;
+  right: 0;
+
+  height: 1px;
+}
+
+.gridHorizontalOne {
+  top: 16%;
+}
+
+.gridHorizontalTwo {
+  bottom: 16%;
+}
+
+/* =========================================
+   ESQUINAS
+========================================= */
+
+.corner {
+  position: absolute;
+
+  z-index: 2;
+
+  width: 50px;
+  height: 50px;
+
+  border-color: rgba(245, 251, 246, 0.48);
+
+  animation:
+    cornerReveal 1100ms
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+.cornerTopLeft {
+  top: 34px;
+  left: 34px;
+
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.cornerTopRight {
+  top: 34px;
+  right: 34px;
+
+  border-top: 1px solid;
+  border-right: 1px solid;
+}
+
+.cornerBottomLeft {
+  bottom: 34px;
+  left: 34px;
+
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+
+.cornerBottomRight {
+  right: 34px;
+  bottom: 34px;
+
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+
+/* =========================================
+   CENTRO / LOGO
+========================================= */
+
+.center {
+  position: relative;
+  z-index: 3;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.logoWrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: min(62vw, 430px);
+
+  overflow: visible;
+}
+
+/* =========================================
+   DESTELLO DEL LOGO
+   SIN BLUR
+========================================= */
+
+.logoFlash {
+  position: absolute;
+  top: -35%;
+  bottom: -35%;
+  left: -22%;
+
+  z-index: 2;
+
+  width: 2px;
+
+  background: #f5fbf6;
+
+  opacity: 0;
+
+  transform: skewX(-18deg);
+
+  pointer-events: none;
+
+  animation:
+    logoFlashMove 1500ms
+    350ms
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+/* =========================================
+   REVELADO DEL LOGO
+========================================= */
+
+.logoReveal {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  clip-path: inset(0 100% 0 0);
+
+  animation:
+    logoClipReveal 1200ms
+    350ms
+    cubic-bezier(0.76, 0, 0.24, 1)
+    forwards;
+}
+
+.logo {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+
+  opacity: 0;
+
+  transform:
+    translateY(24px)
+    scale(1.08);
+
+  animation:
+    logoEntrance 1200ms
+    380ms
+    cubic-bezier(0.22, 1, 0.36, 1)
+    forwards;
+}
+
+/* =========================================
+   TEXTO VERTICAL
+========================================= */
+
+.verticalLabel {
+  position: absolute;
+  top: 50%;
+  left: 31px;
+
+  z-index: 3;
+
+  color: rgb(255, 255, 255);
+
+  font-size: 15px;
+  font-weight: 600;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.22em;
+
+  white-space: nowrap;
+
+  text-transform: uppercase;
+
+  writing-mode: vertical-rl;
+
+  transform:
+    translateY(-50%)
+    rotate(180deg);
+
+  animation:
+    verticalReveal 900ms
+    500ms ease both;
+}
+
+/* =========================================
+   PUNTO CENTRAL
+========================================= */
+
+.accentPoint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  z-index: 1;
+
+  width: 13px;
+  height: 13px;
+
+  border-radius: 50%;
+
+  background: #c6a56a;
+
+  box-shadow:
+    0 0 0 11px
+      rgba(198, 165, 106, 0.08),
+    0 0 0 24px
+      rgba(198, 165, 106, 0.035);
+
+  transform: translate(-50%, -50%);
+
+  animation:
+    pointPulse 1800ms
+    ease-in-out infinite;
+}
+
+/* =========================================
+   LOADING
+========================================= */
+
+.loaderProgress {
+  position: absolute;
+  right: 8vw;
+  bottom: 34px;
+  left: 8vw;
+
+  z-index: 5;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  animation:
+    progressReveal 800ms
+    400ms ease both;
+}
+
+.progressHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: rgba(245, 251, 246, 0.8);
+
+  font-size: 8px;
+  font-weight: 600;
+
+  line-height: 1;
+
+  letter-spacing: 0.18em;
+
+  text-transform: uppercase;
+}
+
+.progressHeader span:last-child {
+  color: #c6a56a;
+
+  font-size: 10px;
+
+  letter-spacing: 0.08em;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.progressTrack {
+  position: relative;
+
+  width: 100%;
+  height: 3px;
+
+  overflow: hidden;
+
+  background: rgba(245, 251, 246, 0.14);
+}
+
+.progressTrack::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent calc(10% - 1px),
+      rgba(245, 251, 246, 0.17)
+        calc(10% - 1px),
+      rgba(245, 251, 246, 0.17) 10%
+    );
+}
+
+.progressValue {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  z-index: 2;
+
+  display: block;
+
+  width: 0;
+  height: 100%;
+
+  background: #c6a56a;
+
+  box-shadow:
+    0 0 12px
+      rgba(198, 165, 106, 0.4);
+
+  transition: width 80ms linear;
+}
+
+/* =========================================
+   ANIMACIONES
+========================================= */
+
+@keyframes loaderAppear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes logoClipReveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(24px)
+      scale(1.08);
+  }
+
+  55% {
+    opacity: 1;
+
+    transform:
+      translateY(-5px)
+      scale(1.015);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+@keyframes logoFlashMove {
+  0% {
+    left: -22%;
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 122%;
+    opacity: 0;
+  }
+}
+
+@keyframes cornerReveal {
+  from {
+    opacity: 0;
+
+    transform: scale(0.7);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+}
+
+@keyframes verticalReveal {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-50%)
+      translateX(-8px)
+      rotate(180deg);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(-50%)
+      translateX(0)
+      rotate(180deg);
+  }
+}
+
+@keyframes progressReveal {
+  from {
+    opacity: 0;
+
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+@keyframes pointPulse {
+  0%,
+  100% {
+    opacity: 0.62;
+
+    box-shadow:
+      0 0 0 11px
+        rgba(198, 165, 106, 0.08),
+      0 0 0 24px
+        rgba(198, 165, 106, 0.035);
+  }
+
+  50% {
+    opacity: 1;
+
+    box-shadow:
+      0 0 0 17px
+        rgba(198, 165, 106, 0.1),
+      0 0 0 32px
+        rgba(198, 165, 106, 0.025);
+  }
+}
+
+/* =========================================
+   SALIDA
+========================================= */
+
+.loaderLeaving {
+  pointer-events: none;
+
+  animation:
+    loaderExit 800ms
+    cubic-bezier(0.76, 0, 0.24, 1)
+    forwards;
+}
+
+.loaderLeaving .center {
+  animation:
+    centerExit 650ms
+    cubic-bezier(0.76, 0, 0.24, 1)
+    forwards;
+}
+
+.loaderLeaving .verticalLabel {
+  animation:
+    verticalExit 450ms ease forwards;
+}
+
+.loaderLeaving .loaderProgress {
+  animation:
+    progressExit 450ms ease forwards;
+}
+
+.loaderLeaving .accentPoint {
+  animation:
+    pointExit 450ms ease forwards;
+}
+
+@keyframes loaderExit {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes centerExit {
+  from {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+
+    transform: translateY(-22px);
+  }
+}
+
+@keyframes verticalExit {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes progressExit {
+  from {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+
+    transform: translateY(8px);
+  }
+}
+
+@keyframes pointExit {
+  from {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+  to {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -50%)
+      scale(0.7);
+  }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+  .corner {
+    width: 38px;
+    height: 38px;
+  }
+
+  .cornerTopLeft,
+  .cornerTopRight {
+    top: 24px;
+  }
+
+  .cornerBottomLeft,
+  .cornerBottomRight {
+    bottom: 24px;
+  }
+
+  .cornerTopLeft,
+  .cornerBottomLeft {
+    left: 24px;
+  }
+
+  .cornerTopRight,
+  .cornerBottomRight {
+    right: 24px;
+  }
+
+  .logoWrapper {
+    width: min(68vw, 360px);
+  }
+
+  .verticalLabel {
+    left: 18px;
+
+    font-size: 7px;
+  }
+
+  .accentPoint {
+    width: 11px;
+    height: 11px;
+  }
+
+  .loaderProgress {
+    right: 6vw;
+    bottom: 30px;
+    left: 6vw;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .grid::before,
+  .grid::after {
+    background-size:
+      46px 46px,
+      46px 46px;
+  }
+
+  .grid::after {
+    background-size:
+      184px 184px,
+      184px 184px;
+  }
+
+  .gridVerticalOne {
+    left: 16%;
+  }
+
+  .gridVerticalTwo {
+    right: 16%;
+  }
+
+  .gridHorizontalOne {
+    top: 18%;
+  }
+
+  .gridHorizontalTwo {
+    bottom: 18%;
+  }
+
+  /* ESQUINAS */
+  .corner {
+    width: 24px;
+    height: 24px;
+  }
+
+  .cornerTopLeft,
+  .cornerTopRight {
+    top: 16px;
+  }
+
+  .cornerBottomLeft,
+  .cornerBottomRight {
+    bottom: 16px;
+  }
+
+  .cornerTopLeft,
+  .cornerBottomLeft {
+    left: 16px;
+  }
+
+  .cornerTopRight,
+  .cornerBottomRight {
+    right: 16px;
+  }
+
+  /* LOGO */
+
+  .center {
+    width: 100%;
+
+    padding: 0 52px;
+  }
+
+  .logoWrapper {
+    width: 100%;
+    max-width: 290px;
+  }
+
+  .logoReveal {
+    clip-path: inset(0 100% 0 0);
+
+    animation:
+      logoClipRevealMobile 1000ms
+      350ms
+      cubic-bezier(0.76, 0, 0.24, 1)
+      forwards;
+  }
+
+  .logo {
+    transform:
+      translateY(18px)
+      scale(1.05);
+
+    animation:
+      logoEntranceMobile 950ms
+      400ms
+      cubic-bezier(0.22, 1, 0.36, 1)
+      forwards;
+  }
+
+  /*
+     DESTELLO MOBILE
+     SIN BLUR
+  */
+
+  .logoFlash {
+    width: 2px;
+
+    top: -25%;
+    bottom: -25%;
+    left: -30%;
+
+    transform: skewX(-18deg);
+
+    animation:
+      logoFlashMoveMobile 1250ms
+      350ms
+      cubic-bezier(0.22, 1, 0.36, 1)
+      both;
+  }
+
+  .logoFlash::after {
+    left: 4px;
+
+    width: 1px;
+  }
+
+  /* TEXTO VERTICAL */
+
+  .verticalLabel {
+    left: 9px;
+
+    font-size: 10px;
+
+    letter-spacing: 0.16em;
+  }
+
+  /* PUNTO */
+
+  .accentPoint {
+    width: 8px;
+    height: 8px;
+
+    box-shadow:
+      0 0 0 7px
+        rgba(198, 165, 106, 0.08),
+      0 0 0 15px
+        rgba(198, 165, 106, 0.035);
+  }
+
+  /* LOADING */
+
+  .loaderProgress {
+    right: 18px;
+    bottom: 24px;
+    left: 18px;
+
+    gap: 7px;
+  }
+
+  .progressHeader {
+    font-size: 6px;
+
+    letter-spacing: 0.15em;
+  }
+
+  .progressHeader span:last-child {
+    font-size: 8px;
+  }
+
+  .progressTrack {
+    height: 3px;
+  }
+
+  .progressValue {
+    box-shadow:
+      0 0 9px
+        rgba(198, 165, 106, 0.4);
+  }
+
+  /* ANIMACIÓN LOGO MOBILE */
+
+  @keyframes logoClipRevealMobile {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+
+    to {
+      clip-path: inset(0);
+    }
+  }
+
+  @keyframes logoEntranceMobile {
+    0% {
+      opacity: 0;
+
+      transform:
+        translateY(18px)
+        scale(1.05);
+    }
+
+    60% {
+      opacity: 1;
+
+      transform:
+        translateY(-3px)
+        scale(1.01);
+    }
+
+    100% {
+      opacity: 1;
+
+      transform:
+        translateY(0)
+        scale(1);
+    }
+  }
+
+  @keyframes logoFlashMoveMobile {
+    0% {
+      opacity: 0;
+      left: -30%;
+    }
+
+    15% {
+      opacity: 1;
+    }
+
+    72% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      left: 125%;
+    }
+  }
+}
+
+/* =========================================
+   MOBILE PEQUEÑO
+========================================= */
+
+@media (max-width: 380px) {
+  .center {
+    padding: 0 45px;
+  }
+
+  .logoWrapper {
+    max-width: 255px;
+  }
+
+  .verticalLabel {
+    left: 7px;
+
+    font-size: 5px;
+  }
+
+  .loaderProgress {
+    right: 13px;
+    bottom: 18px;
+    left: 13px;
+  }
+
+  .progressHeader {
+    font-size: 5px;
+  }
+
+  .progressHeader span:last-child {
+    font-size: 7px;
+  }
+
+  .corner {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cornerTopLeft,
+  .cornerTopRight {
+    top: 13px;
+  }
+
+  .cornerBottomLeft,
+  .cornerBottomRight {
+    bottom: 13px;
+  }
+
+  .cornerTopLeft,
+  .cornerBottomLeft {
+    left: 13px;
+  }
+
+  .cornerTopRight,
+  .cornerBottomRight {
+    right: 13px;
+  }
+}
+
+/* =========================================
+   REDUCIR MOVIMIENTO
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .loader,
+  .logoReveal,
+  .logo,
+  .logoFlash,
+  .verticalLabel,
+  .accentPoint,
+  .corner,
+  .loaderProgress,
+  .loaderLeaving,
+  .loaderLeaving .center,
+  .loaderLeaving .verticalLabel,
+  .loaderLeaving .loaderProgress,
+  .loaderLeaving .accentPoint {
+    animation: none;
+  }
+
+  .logoReveal {
+    clip-path: inset(0);
+  }
+
+  .logo {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  .logoFlash {
+    display: none;
+  }
+
+  .progressValue {
+    transition: none;
+  }
+}
