@@ -23,7 +23,7 @@ const principles = [
     number: "03",
     title: "LUZ",
     text: "La arquitectura encuentra claridad al revelar el espacio a través de la luz.",
-    image: "/media/luz.jpeg",
+    image: "/media/luz1.jpeg",
   },
 ];
 
@@ -99,11 +99,16 @@ export default function PurposeSection() {
         ========================= */}
 
         <div className={styles.activeDescription}>
-          <span className={styles.activeNumber}>
-            {activePrinciple.number}
-          </span>
 
-          <p>{activePrinciple.text}</p>
+          <div className={styles.quoteContent}>
+            <span className={styles.quoteMark} aria-hidden="true">
+            </span>
+
+            <p>{activePrinciple.text}</p>
+
+            <span className={styles.quoteMarkEnd} aria-hidden="true">
+            </span>
+          </div>
         </div>
 
         {/* =========================
