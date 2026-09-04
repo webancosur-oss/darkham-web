@@ -98,8 +98,6 @@
 
   color: #f5fbf6;
 
-  font-family: var(--font-display), serif;
-
   font-size: clamp(44px, 5vw, 70px);
   font-weight: 500;
 

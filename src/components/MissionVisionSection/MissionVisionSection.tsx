@@ -1,47 +1,37 @@
 "use client";
 
-import Image from "next/image";
-
 import { ScrollAnimationTrigger } from "@/components/ui/scroll-animation-trigger";
 import styles from "./MissionVisionSection.module.css";
 
 export default function MissionVisionSection() {
   return (
     <section className={styles.section}>
-      <div className={styles.background} aria-hidden="true">
-        <Image
-          src="/media/mission.jpeg"
-          alt=""
-          fill
-          sizes="100vw"
-          className={styles.backgroundImage}
-        />
-      </div>
-
-      <div className={styles.overlay} aria-hidden="true" />
-
       <div className={styles.wrapper}>
-        <ScrollAnimationTrigger
-          effect="fade"
-          threshold={0.15}
-          duration={0.8}
-          once
-        >
-          <p className={styles.eyebrow}>NUESTRA DIRECCIÓN</p>
-        </ScrollAnimationTrigger>
+
+        {/* =====================================
+            CONTENT
+        ===================================== */}
 
         <div className={styles.content}>
+          {/* =================================
+              MISIÓN
+          ================================= */}
+
           <ScrollAnimationTrigger
             effect="slide"
             direction="left"
             threshold={0.15}
             duration={0.9}
             once
+            className={styles.columnAnimation}
           >
-            <article className={styles.block}>
-              <span className={styles.label}>MISIÓN</span>
+            <article className={`${styles.block} ${styles.mission}`}>
+              <div className={styles.blockTop}>
+                <span className={styles.number}>01</span>
+                <span className={styles.label}>MISIÓN</span>
+              </div>
 
-              <div className={styles.line} />
+              <div className={styles.accentLine} />
 
               <h2 className={styles.text}>
                 Crear arquitectura que revele la verdad de los espacios con
@@ -52,17 +42,25 @@ export default function MissionVisionSection() {
 
           <div className={styles.divider} aria-hidden="true" />
 
+          {/* =================================
+              VISIÓN
+          ================================= */}
+
           <ScrollAnimationTrigger
             effect="slide"
             direction="right"
             threshold={0.15}
             duration={0.9}
             once
+            className={styles.columnAnimation}
           >
-            <article className={styles.block}>
-              <span className={styles.label}>VISIÓN</span>
+            <article className={`${styles.block} ${styles.vision}`}>
+              <div className={styles.blockTop}>
+                <span className={styles.number}>02</span>
+                <span className={styles.label}>VISIÓN</span>
+              </div>
 
-              <div className={styles.line} />
+              <div className={styles.accentLine} />
 
               <h2 className={styles.text}>
                 Diseñar proyectos residenciales e inmobiliarios honestos,
@@ -73,6 +71,10 @@ export default function MissionVisionSection() {
           </ScrollAnimationTrigger>
         </div>
 
+        {/* =====================================
+            FOOTER
+        ===================================== */}
+
         <ScrollAnimationTrigger
           effect="fade"
           threshold={0.15}
@@ -81,8 +83,11 @@ export default function MissionVisionSection() {
           once
         >
           <div className={styles.bottom}>
+            <span className={styles.bottomText}>
+              DARKHAM ARQUITECTURA
+            </span>
+
             <span className={styles.bottomLine} />
-            <span className={styles.bottomText}>DARKHAM ARQUITECTURA</span>
           </div>
         </ScrollAnimationTrigger>
       </div>

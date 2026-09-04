@@ -295,9 +295,7 @@
   color:
     #c6a56a;
 
-  font-family:
-    var(--font-display),
-    serif;
+ 
 
   font-size:
     27px;
@@ -341,9 +339,7 @@
   color:
     #163a3b;
 
-  font-family:
-    var(--font-display),
-    serif;
+
 
   font-size:
     24px;
@@ -469,9 +465,7 @@
       0.38
     );
 
-  font-family:
-    var(--font-display),
-    serif;
+
 
   font-size:
     10px;
@@ -576,9 +570,6 @@
   color:
     #163a3b;
 
-  font-family:
-    var(--font-display),
-    serif;
 
   font-size:
     20px;
@@ -923,9 +914,7 @@
   color:
     #163a3b;
 
-  font-family:
-    var(--font-display),
-    serif;
+ 
 
   font-size:
     22px;

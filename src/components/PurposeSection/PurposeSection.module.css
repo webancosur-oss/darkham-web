@@ -1,16 +1,11 @@
 .section {
   position: relative;
-
   width: calc(100vw - 74px);
   min-height: 100svh;
-
   margin-left: 74px;
-
   overflow: hidden;
-
   background: #163a3b;
   color: #ffffff;
-
   isolation: isolate;
 }
 
@@ -21,76 +16,37 @@
 .backgrounds {
   position: absolute;
   inset: 0;
-
   z-index: 0;
-
   overflow: hidden;
 }
 
 .backgroundLayer {
   position: absolute;
   inset: 0;
-
   visibility: hidden;
-
   opacity: 0;
-
-  transform:
-    scale(1.04);
+  transform: scale(1.04);
 
   transition:
-    opacity 900ms
-      cubic-bezier(
-        0.22,
-        1,
-        0.36,
-        1
-      ),
-    transform 1500ms
-      cubic-bezier(
-        0.22,
-        1,
-        0.36,
-        1
-      ),
-    visibility 0s
-      linear
-      900ms;
+    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1500ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 900ms;
 }
 
 .backgroundLayerActive {
   visibility: visible;
-
   opacity: 1;
-
-  transform:
-    scale(1);
+  transform: scale(1);
 
   transition:
-    opacity 900ms
-      cubic-bezier(
-        0.22,
-        1,
-        0.36,
-        1
-      ),
-    transform 1500ms
-      cubic-bezier(
-        0.22,
-        1,
-        0.36,
-        1
-      ),
-    visibility 0s
-      linear
-      0s;
+    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1500ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 0s;
 }
 
 .backgroundImage {
   object-fit: cover;
-
-  object-position:
-    center center;
+  object-position: center center;
 }
 
 .backgroundShade {
@@ -100,45 +56,15 @@
   background:
     linear-gradient(
       90deg,
-      rgba(
-        0,
-        0,
-        0,
-        0.5
-      ) 0%,
-      rgba(
-        0,
-        0,
-        0,
-        0.15
-      ) 42%,
-      rgba(
-        0,
-        0,
-        0,
-        0.24
-      ) 100%
+      rgba(0, 0, 0, 0.52) 0%,
+      rgba(0, 0, 0, 0.16) 42%,
+      rgba(0, 0, 0, 0.24) 100%
     ),
     linear-gradient(
       180deg,
-      rgba(
-        0,
-        0,
-        0,
-        0.14
-      ) 0%,
-      rgba(
-        0,
-        0,
-        0,
-        0.04
-      ) 45%,
-      rgba(
-        0,
-        0,
-        0,
-        0.32
-      ) 100%
+      rgba(0, 0, 0, 0.14) 0%,
+      rgba(0, 0, 0, 0.04) 45%,
+      rgba(0, 0, 0, 0.34) 100%
     );
 
   pointer-events: none;
@@ -150,17 +76,14 @@
 
 .wrapper {
   position: relative;
-
   z-index: 2;
 
-  width:
-    min(
-      calc(100% - 80px),
-      1480px
-    );
+  width: min(
+    calc(100% - 80px),
+    1480px
+  );
 
   min-height: 100svh;
-
   margin-inline: auto;
 }
 
@@ -170,30 +93,19 @@
 
 .brand {
   position: absolute;
-
   top: 28px;
   left: 0;
 
-  color:
-    var(--color-accent);
+  color: rgba(255, 255, 255, 0.88);
 
   font-size: 10px;
-  font-weight: 700;
-
+  font-weight: 500;
   line-height: 1;
-
   letter-spacing: 0.17em;
-
   text-transform: uppercase;
 
   text-shadow:
-    0 2px 8px
-    rgba(
-      0,
-      0,
-      0,
-      0.5
-    );
+    0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* =========================================
@@ -202,15 +114,13 @@
 
 .titleWrapper {
   position: absolute;
-
   top: 104px;
   right: -12px;
 
-  width:
-    min(
-      58vw,
-      760px
-    );
+  width: min(
+    58vw,
+    760px
+  );
 }
 
 .title {
@@ -220,40 +130,20 @@
 
   margin: 0;
 
-  font-family:
-    var(--font-display),
-    serif;
-
-  font-size:
-    clamp(
-      62px,
-      6.7vw,
-      112px
-    );
+  font-size: clamp(
+    62px,
+    6.7vw,
+    112px
+  );
 
   font-weight: 400;
-
   line-height: 0.8;
-
   letter-spacing: -0.06em;
-
   text-align: right;
 
   text-shadow:
-    0 3px 14px
-      rgba(
-        0,
-        0,
-        0,
-        0.48
-      ),
-    0 1px 3px
-      rgba(
-        0,
-        0,
-        0,
-        0.3
-      );
+    0 3px 14px rgba(0, 0, 0, 0.48),
+    0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .title span {
@@ -261,10 +151,8 @@
 }
 
 .title em {
-  color:
-    var(--color-accent);
-
-  font-style: italic;
+  color: #ffffff;
+  font-style: normal;
 }
 
 /* =========================================
@@ -273,7 +161,6 @@
 
 .bottomContent {
   position: absolute;
-
   left: 0;
   right: 0;
   bottom: 76px;
@@ -285,7 +172,6 @@
     minmax(280px, 1fr);
 
   align-items: end;
-
   gap: 90px;
 }
 
@@ -295,92 +181,57 @@
 
 .quoteWrapper {
   position: relative;
-
   width: 100%;
-
   padding-left: 24px;
 }
 
 .quote {
   position: relative;
-
   width: 100%;
 
   padding:
     0
-    25px 0 22px;
+    25px
+    22px;
 
   animation:
-    quoteEnter
-    500ms
-    cubic-bezier(
-      0.22,
-      1,
-      0.36,
-      1
-    )
+    quoteEnter 500ms
+    cubic-bezier(0.22, 1, 0.36, 1)
     both;
 }
 
 .quote p {
   margin: 0;
-
   max-width: 355px;
 
   color: #ffffff;
 
-  font-family:
-    var(--font-display),
-    serif;
+  font-size: clamp(
+    18px,
+    1.35vw,
+    21px
+  );
 
-  font-size:
-    clamp(
-      18px,
-      1.35vw,
-      21px
-    );
-
-  font-weight: 500;
-
+  font-weight: 400;
   line-height: 1.42;
-
   letter-spacing: -0.012em;
 
   text-shadow:
-    0 2px 10px
-      rgba(
-        0,
-        0,
-        0,
-        0.66
-      );
+    0 2px 10px rgba(0, 0, 0, 0.66);
 }
 
 .quoteOpen,
 .quoteClose {
   position: absolute;
 
-  color:
-    #e7d2a6;
-
-  font-family:
-    var(--font-display),
-    serif;
+  color: rgba(255, 255, 255, 0.82);
 
   font-size: 34px;
-
-  font-weight: 500;
-
+  font-weight: 400;
   line-height: 1;
 
   text-shadow:
-    0 2px 8px
-      rgba(
-        0,
-        0,
-        0,
-        0.5
-      );
+    0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .quoteOpen {
@@ -396,34 +247,29 @@
 @keyframes quoteEnter {
   from {
     opacity: 0;
-
-    transform:
-      translateY(10px);
+    transform: translateY(10px);
   }
 
   to {
     opacity: 1;
-
-    transform:
-      translateY(0);
+    transform: translateY(0);
   }
 }
 
 /* =========================================
    PRINCIPLES
-   BOTONES
+   GLASS PREMIUM
 ========================================= */
 
 .principles {
   display: flex;
-
   flex-direction: column;
 
-  gap: 10px;
+  gap: 8px;
 
   width: min(
     100%,
-    470px
+    430px
   );
 
   justify-self: end;
@@ -433,173 +279,116 @@
   min-width: 0;
 }
 
-/*
- * El botón ahora tiene una verdadera
- * superficie interactiva.
- */
 .principle {
   position: relative;
 
   display: grid;
 
   grid-template-columns:
-    36px minmax(0, 1fr)
-    34px;
+    34px
+    minmax(0, 1fr);
 
   align-items: center;
 
   width: 100%;
-
-  min-height: 72px;
+  min-height: 66px;
 
   padding:
     10px
-    14px
-    10px
     16px;
 
-  border:
-    1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.25
-    );
+  border: 1px solid
+    rgba(255, 255, 255, 0.16);
+
+  border-radius: 2px;
 
   background:
-    rgba(
-      22,
-      58,
-      59,
-      0.26
-    );
+    rgba(255, 255, 255, 0.07);
 
   color: #ffffff;
 
   text-align: left;
-
   cursor: pointer;
-
   appearance: none;
 
-  backdrop-filter:
-    blur(5px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
-  -webkit-backdrop-filter:
-    blur(5px);
+  box-shadow:
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.08),
+    0 8px 24px
+      rgba(0, 0, 0, 0.06);
 
   transition:
-    background 280ms ease,
-    border-color 280ms ease,
-    transform 280ms
-      cubic-bezier(
-        0.22,
-        1,
-        0.36,
-        1
-      ),
-    box-shadow 280ms ease;
+    background 260ms ease,
+    border-color 260ms ease,
+    transform 260ms
+      cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms ease;
 }
 
-/*
- * Barra de selección.
- */
+/* =========================================
+   ACTIVE LINE
+========================================= */
+
 .principle::before {
   content: "";
 
   position: absolute;
 
   left: -1px;
-  top: -1px;
-  bottom: -1px;
+  top: 7px;
+  bottom: 7px;
 
-  width: 2px;
+  width: 1px;
 
-  background:
-    var(--color-accent);
+  background: #ffffff;
 
   opacity: 0;
-
-  transform:
-    scaleY(0.45);
+  transform: scaleY(0.45);
 
   transition:
-    opacity 280ms ease,
-    transform 280ms
-      cubic-bezier(
-        0.22,
-        1,
-        0.36,
-        1
-      );
+    opacity 260ms ease,
+    transform 260ms
+      cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .principle:hover {
-  transform:
-    translateX(-6px);
+  transform: translateX(-3px);
 
   border-color:
-    rgba(
-      231,
-      210,
-      166,
-      0.65
-    );
+    rgba(255, 255, 255, 0.28);
 
   background:
-    rgba(
-      22,
-      58,
-      59,
-      0.55
-    );
+    rgba(255, 255, 255, 0.12);
 
   box-shadow:
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.1),
     0 12px 28px
-      rgba(
-        0,
-        0,
-        0,
-        0.16
-      );
+      rgba(0, 0, 0, 0.1);
 }
 
 .principleActive {
-  transform:
-    translateX(-8px);
+  transform: translateX(-5px);
 
   border-color:
-    rgba(
-      231,
-      210,
-      166,
-      0.8
-    );
+    rgba(255, 255, 255, 0.34);
 
   background:
-    rgba(
-      22,
-      58,
-      59,
-      0.7
-    );
+    rgba(255, 255, 255, 0.15);
 
   box-shadow:
-    0 14px 32px
-      rgba(
-        0,
-        0,
-        0,
-        0.2
-      );
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.12),
+    0 14px 30px
+      rgba(0, 0, 0, 0.12);
 }
 
 .principleActive::before {
   opacity: 1;
-
-  transform:
-    scaleY(1);
+  transform: scaleY(1);
 }
 
 /* =========================================
@@ -610,15 +399,15 @@
   align-self: center;
 
   color:
-    var(--color-accent);
+    rgba(255, 255, 255, 0.52);
 
-  font-size: 10px;
-
-  font-weight: 700;
-
+  font-size: 9px;
+  font-weight: 500;
   line-height: 1;
-
   letter-spacing: 0.12em;
+
+  transition:
+    color 240ms ease;
 }
 
 /* =========================================
@@ -627,64 +416,43 @@
 
 .principleText {
   display: flex;
-
   flex-direction: column;
-
   justify-content: center;
 
   gap: 5px;
-
   min-width: 0;
 }
 
 .principleTitle {
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.72
-    );
+    rgba(255, 255, 255, 0.72);
 
-  font-size:
-    clamp(
-      15px,
-      1.2vw,
-      18px
-    );
+  font-size: clamp(
+    15px,
+    1.2vw,
+    18px
+  );
 
-  font-weight: 700;
-
+  font-weight: 500;
   line-height: 1;
-
-  letter-spacing: 0.04em;
+  letter-spacing: 0.055em;
 
   transition:
-    color 250ms ease,
-    letter-spacing 250ms ease;
+    color 240ms ease,
+    letter-spacing 240ms ease;
 }
 
 .principleAction {
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.38
-    );
+    rgba(255, 255, 255, 0.4);
 
   font-size: 7px;
-
-  font-weight: 700;
-
+  font-weight: 500;
   line-height: 1;
-
   letter-spacing: 0.14em;
 
   opacity: 0;
-
-  transform:
-    translateY(3px);
+  transform: translateY(3px);
 
   transition:
     opacity 220ms ease,
@@ -692,158 +460,27 @@
     color 220ms ease;
 }
 
-.principle:hover
-.principleTitle,
-.principleActive
-.principleTitle {
+.principle:hover .principleNumber,
+.principleActive .principleNumber {
+  color:
+    rgba(255, 255, 255, 0.9);
+}
+
+.principle:hover .principleTitle,
+.principleActive .principleTitle {
   color: #ffffff;
-
-  letter-spacing: 0.06em;
+  letter-spacing: 0.065em;
 }
 
-.principle:hover
-.principleAction,
-.principleActive
-.principleAction {
+.principle:hover .principleAction,
+.principleActive .principleAction {
   opacity: 1;
-
-  transform:
-    translateY(0);
+  transform: translateY(0);
 }
 
-.principleActive
-.principleAction {
+.principleActive .principleAction {
   color:
-    var(--color-accent);
-}
-
-/* =========================================
-   ARROW
-========================================= */
-
-.principleArrow {
-  position: relative;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 30px;
-  height: 30px;
-
-  border:
-    1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.3
-    );
-
-  border-radius: 50%;
-
-  transition:
-    border-color 250ms ease,
-    background 250ms ease,
-    transform 300ms
-      cubic-bezier(
-        0.22,
-        1,
-        0.36,
-        1
-      );
-}
-
-.principleArrow::after {
-  content: "";
-
-  position: absolute;
-
-  width: 7px;
-  height: 7px;
-
-  border-top:
-    1px solid
-    currentColor;
-
-  border-right:
-    1px solid
-    currentColor;
-
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      0.62
-    );
-
-  transform:
-    rotate(45deg);
-}
-
-.principleArrow span {
-  position: absolute;
-
-  width: 11px;
-  height: 1px;
-
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      0.62
-    );
-
-  transform:
-    translateX(-2px);
-}
-
-.principleArrow span + span {
-  display: none;
-}
-
-.principle:hover
-.principleArrow {
-  border-color:
-    var(--color-accent);
-
-  background:
-    rgba(
-      198,
-      165,
-      106,
-      0.12
-    );
-
-  transform:
-    translateX(2px);
-}
-
-.principleActive
-.principleArrow {
-  border-color:
-    var(--color-accent);
-
-  background:
-    var(--color-accent);
-
-  transform:
-    translateX(2px);
-}
-
-.principleActive
-.principleArrow::after {
-  color:
-    #163a3b;
-}
-
-.principleActive
-.principleArrow span {
-  background:
-    #163a3b;
+    rgba(255, 255, 255, 0.68);
 }
 
 /* =========================================
@@ -857,50 +494,29 @@
   bottom: 25px;
 
   display: flex;
-
   align-items: center;
 
   gap: 7px;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.7
-    );
+    rgba(255, 255, 255, 0.7);
 
   font-size: 9px;
-
-  font-weight: 700;
-
+  font-weight: 500;
   line-height: 1;
-
   letter-spacing: 0.12em;
 
   text-shadow:
-    0 2px 8px
-      rgba(
-        0,
-        0,
-        0,
-        0.5
-      );
+    0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .counter span:first-child {
-  color:
-    var(--color-accent);
+  color: #ffffff;
 }
 
 .counterSlash {
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.4
-    );
+    rgba(255, 255, 255, 0.4);
 }
 
 /* =========================================
@@ -918,9 +534,7 @@
 
   .titleWrapper {
     top: 92px;
-
     right: 0;
-
     width: 56vw;
   }
 
@@ -937,10 +551,8 @@
     bottom: 68px;
 
     grid-template-columns:
-      320px minmax(
-        280px,
-        430px
-      );
+      320px
+      minmax(280px, 430px);
 
     gap: 48px;
   }
@@ -950,7 +562,7 @@
   }
 
   .principle {
-    min-height: 66px;
+    min-height: 62px;
   }
 
   .principleTitle {
@@ -969,8 +581,7 @@
   }
 
   .wrapper {
-    width:
-      calc(100% - 52px);
+    width: calc(100% - 52px);
   }
 
   .brand {
@@ -1003,10 +614,8 @@
     bottom: 54px;
 
     grid-template-columns:
-      250px minmax(
-        280px,
-        390px
-      );
+      250px
+      minmax(280px, 390px);
 
     gap: 28px;
   }
@@ -1035,14 +644,15 @@
   }
 
   .principle {
-    min-height: 62px;
+    min-height: 60px;
 
     grid-template-columns:
-      30px minmax(0, 1fr)
-      30px;
+      30px
+      minmax(0, 1fr);
 
     padding:
-      8px 11px 8px 12px;
+      8px
+      12px;
   }
 
   .principleTitle {
@@ -1051,11 +661,6 @@
 
   .principleAction {
     font-size: 6px;
-  }
-
-  .principleArrow {
-    width: 27px;
-    height: 27px;
   }
 
   .counter {
@@ -1071,37 +676,20 @@
   .section {
     width: 100%;
     margin-left: 0;
-
     min-height: 100svh;
   }
 
   .backgroundImage {
-    object-position:
-      55% center;
+    object-position: 55% center;
   }
 
   .backgroundShade {
     background:
       linear-gradient(
         180deg,
-        rgba(
-          0,
-          0,
-          0,
-          0.34
-        ) 0%,
-        rgba(
-          0,
-          0,
-          0,
-          0.08
-        ) 32%,
-        rgba(
-          0,
-          0,
-          0,
-          0.28
-        ) 100%
+        rgba(0, 0, 0, 0.34) 0%,
+        rgba(0, 0, 0, 0.08) 32%,
+        rgba(0, 0, 0, 0.28) 100%
       );
   }
 
@@ -1125,9 +713,7 @@
 
   .brand {
     position: static;
-
     display: block;
-
     font-size: 9px;
   }
 
@@ -1137,9 +723,7 @@
 
   .titleWrapper {
     position: static;
-
     width: 100%;
-
     margin-top: 30px;
   }
 
@@ -1154,7 +738,6 @@
       );
 
     line-height: 0.84;
-
     letter-spacing: -0.055em;
   }
 
@@ -1166,13 +749,10 @@
     position: static;
 
     display: flex;
-
     flex-direction: column;
-
     align-items: stretch;
 
     gap: 0;
-
     width: 100%;
 
     margin-top:
@@ -1189,7 +769,6 @@
 
   .quoteWrapper {
     padding-left: 12px;
-
     width: 100%;
   }
 
@@ -1243,57 +822,47 @@
         62px
       );
 
-    gap: 8px;
+    gap: 7px;
   }
 
   .principle {
     grid-template-columns:
-      32px minmax(0, 1fr)
-      32px;
+      30px
+      minmax(0, 1fr);
 
-    min-height: 64px;
+    min-height: 62px;
 
     padding:
       9px
       12px;
 
-    /*
-     * En mobile el botón siempre
-     * debe verse como botón.
-     */
     border-color:
-      rgba(
-        255,
-        255,
-        255,
-        0.32
-      );
+      rgba(255, 255, 255, 0.2);
 
     background:
-      rgba(
-        22,
-        58,
-        59,
-        0.38
-      );
+      rgba(255, 255, 255, 0.09);
 
-    backdrop-filter:
-      blur(4px);
-
-    -webkit-backdrop-filter:
-      blur(4px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
-  .principle:hover {
-    transform: none;
-  }
-
+  .principle:hover,
   .principleActive {
     transform: none;
   }
 
+  .principleActive {
+    background:
+      rgba(255, 255, 255, 0.14);
+
+    border-color:
+      rgba(255, 255, 255, 0.3);
+  }
+
   .principle::before {
-    width: 2px;
+    width: 1px;
+    top: 6px;
+    bottom: 6px;
   }
 
   .principleNumber {
@@ -1302,33 +871,18 @@
 
   .principleTitle {
     font-size: 14px;
-
     letter-spacing: 0.045em;
   }
 
-  .principle:hover
-  .principleTitle,
-  .principleActive
-  .principleTitle {
+  .principle:hover .principleTitle,
+  .principleActive .principleTitle {
     letter-spacing: 0.055em;
   }
 
-  /*
-   * En mobile el estado del botón
-   * se muestra siempre.
-   */
   .principleAction {
     opacity: 1;
-
-    transform:
-      none;
-
+    transform: none;
     font-size: 6px;
-  }
-
-  .principleArrow {
-    width: 27px;
-    height: 27px;
   }
 
   /* =====================================
@@ -1372,8 +926,7 @@
   }
 
   .bottomContent {
-    margin-top:
-      40px;
+    margin-top: 40px;
   }
 
   .quoteWrapper {
@@ -1397,16 +950,15 @@
 
   .principles {
     margin-top: 36px;
-
-    gap: 7px;
+    gap: 6px;
   }
 
   .principle {
     grid-template-columns:
-      28px minmax(0, 1fr)
-      29px;
+      27px
+      minmax(0, 1fr);
 
-    min-height: 60px;
+    min-height: 58px;
 
     padding:
       8px
@@ -1419,13 +971,7 @@
 
   .principleAction {
     font-size: 5.5px;
-
     letter-spacing: 0.11em;
-  }
-
-  .principleArrow {
-    width: 25px;
-    height: 25px;
   }
 
   .counter {
@@ -1440,10 +986,14 @@
 .principle:focus-visible {
   outline:
     1px solid
-    var(--color-accent);
+    rgba(255, 255, 255, 0.8);
 
   outline-offset: 3px;
 }
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
 
 @media (prefers-reduced-motion: reduce) {
   .backgroundLayer,
@@ -1452,7 +1002,6 @@
   .principle::before,
   .principleTitle,
   .principleAction,
-  .principleArrow,
   .quote {
     transition: none;
     animation: none;

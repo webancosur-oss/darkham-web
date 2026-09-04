@@ -1,11 +1,13 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import styles from "./Hero.module.css";
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
+
+  const [videoEnded, setVideoEnded] = useState(false);
 
   const handleScroll = () => {
     const nextSection = heroRef.current?.nextElementSibling;
@@ -25,18 +27,26 @@ export default function Hero() {
     });
   };
 
+  const handleVideoEnd = () => {
+    setVideoEnded(true);
+  };
+
   return (
     <section
       ref={heroRef}
       className={styles.hero}
     >
-      {/* VIDEO */}
+      {/* =====================================
+          VIDEO
+      ===================================== */}
+
       <video
         className={styles.video}
         autoPlay
         muted
         playsInline
         preload="auto"
+        onEnded={handleVideoEnd}
         aria-label="Presentación audiovisual de Darkham"
       >
         <source
@@ -45,13 +55,34 @@ export default function Hero() {
         />
       </video>
 
-      {/* OVERLAY */}
+      {/* =====================================
+          OVERLAY
+      ===================================== */}
+
       <div
         className={styles.overlay}
         aria-hidden="true"
       />
 
-      {/* SCROLL MOUSE */}
+      {/* =====================================
+          TEXTO FINAL
+      ===================================== */}
+
+      <div
+        className={`${styles.finalTitle} ${
+          videoEnded
+            ? styles.finalTitleVisible
+            : ""
+        }`}
+        aria-hidden={!videoEnded}
+      >
+        DISTRITO SAN CARLOS
+      </div>
+
+      {/* =====================================
+          SCROLL
+      ===================================== */}
+
       <button
         type="button"
         className={styles.scrollButton}

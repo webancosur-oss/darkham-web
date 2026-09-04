@@ -42,10 +42,7 @@ export default function PurposeSection() {
           BACKGROUNDS
       ===================================== */}
 
-      <div
-        className={styles.backgrounds}
-        aria-hidden="true"
-      >
+      <div className={styles.backgrounds} aria-hidden="true">
         {principles.map((principle, index) => (
           <div
             key={principle.image}
@@ -66,9 +63,7 @@ export default function PurposeSection() {
           </div>
         ))}
 
-        <div
-          className={styles.backgroundShade}
-        />
+        <div className={styles.backgroundShade} />
       </div>
 
       <div className={styles.wrapper}>
@@ -100,13 +95,8 @@ export default function PurposeSection() {
             duration={0.9}
           >
             <h2 className={styles.title}>
-              <span>
-                La forma de
-              </span>
-
-              <em>
-                hacer arquitectura.
-              </em>
+              <span>La forma de</span>
+              <em>hacer arquitectura.</em>
             </h2>
           </ScrollAnimationTrigger>
         </div>
@@ -125,9 +115,7 @@ export default function PurposeSection() {
             aria-live="polite"
           >
             <div
-              key={
-                activePrinciple.number
-              }
+              key={activePrinciple.number}
               className={styles.quote}
             >
               <span
@@ -137,9 +125,7 @@ export default function PurposeSection() {
                 “
               </span>
 
-              <p>
-                {activePrinciple.text}
-              </p>
+              <p>{activePrinciple.text}</p>
 
               <span
                 className={styles.quoteClose}
@@ -151,99 +137,56 @@ export default function PurposeSection() {
           </div>
 
           {/* =================================
-              BOTONES DE PRINCIPIOS
+              PRINCIPIOS
           ================================= */}
 
           <nav
             className={styles.principles}
             aria-label="Seleccionar principio"
           >
-            {principles.map(
-              (principle, index) => {
-                const isActive =
-                  activeIndex === index;
+            {principles.map((principle, index) => {
+              const isActive = activeIndex === index;
 
-                return (
-                  <ScrollAnimationTrigger
-                    key={
-                      principle.number
-                    }
-                    effect="slide"
-                    direction="left"
-                    threshold={0.12}
-                    once
-                    duration={0.7}
-                    delay={
-                      index * 0.08
-                    }
-                    className={
-                      styles.principleAnimation
-                    }
+              return (
+                <ScrollAnimationTrigger
+                  key={principle.number}
+                  effect="slide"
+                  direction="left"
+                  threshold={0.12}
+                  once
+                  duration={0.7}
+                  delay={index * 0.08}
+                  className={styles.principleAnimation}
+                >
+                  <button
+                    type="button"
+                    className={`${styles.principle} ${
+                      isActive
+                        ? styles.principleActive
+                        : ""
+                    }`}
+                    onClick={() => selectPrinciple(index)}
+                    aria-pressed={isActive}
                   >
-                    <button
-                      type="button"
-                      className={`${styles.principle} ${
-                        isActive
-                          ? styles.principleActive
-                          : ""
-                      }`}
-                      onClick={() =>
-                        selectPrinciple(
-                          index,
-                        )
-                      }
-                      aria-pressed={
-                        isActive
-                      }
-                    >
-                      <span
-                        className={
-                          styles.principleNumber
-                        }
-                      >
-                        {principle.number}
+                    <span className={styles.principleNumber}>
+                      {principle.number}
+                    </span>
+
+                    <span className={styles.principleText}>
+                      <span className={styles.principleTitle}>
+                        {principle.title}
                       </span>
 
-                      <span
-                        className={
-                          styles.principleText
-                        }
-                      >
-                        <span
-                          className={
-                            styles.principleTitle
-                          }
-                        >
-                          {
-                            principle.title
-                          }
-                        </span>
-
-                        <span
-                          className={
-                            styles.principleAction
-                          }
-                        >
-                          {isActive
-                            ? "SELECCIONADO"
-                            : "VER PRINCIPIO"}
-                        </span>
+                      <span className={styles.principleAction}>
+                        {isActive
+                          ? "SELECCIONADO"
+                          : "VER PRINCIPIO"}
                       </span>
-
-                      <span
-                        className={
-                          styles.principleArrow
-                        }
-                        aria-hidden="true"
-                      >
-                        <span />
-                        <span />
-                      </span>
-                    </button>
-                  </ScrollAnimationTrigger>
-                );
-              },
-            )}
+                    </span>
+                  </button>
+                </ScrollAnimationTrigger>
+              );
+            })}
           </nav>
         </div>
 
@@ -256,19 +199,13 @@ export default function PurposeSection() {
           aria-hidden="true"
         >
           <span>
-            {String(
-              activeIndex + 1,
-            ).padStart(2, "0")}
+            {String(activeIndex + 1).padStart(2, "0")}
           </span>
 
-          <span className={styles.counterSlash}>
-            /
-          </span>
+          <span className={styles.counterSlash}>/</span>
 
           <span>
-            {String(
-              principles.length,
-            ).padStart(2, "0")}
+            {String(principles.length).padStart(2, "0")}
           </span>
         </div>
       </div>
