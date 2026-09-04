@@ -224,13 +224,6 @@ export default function PlansSection() {
         </div>
 
       </div>
-
-      <div
-        className={styles.backgroundNumber}
-        aria-hidden="true"
-      >
-        04
-      </div>
     </section>
   );
 }

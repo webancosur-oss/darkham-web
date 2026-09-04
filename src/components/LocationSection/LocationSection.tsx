@@ -4,7 +4,6 @@ import Image from "next/image";
 import {
   PointerEvent as ReactPointerEvent,
   useCallback,
-  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -77,26 +76,36 @@ const clamp = (
   value: number,
   min: number,
   max: number,
-) => Math.min(Math.max(value, min), max);
+) => {
+  return Math.min(
+    Math.max(value, min),
+    max,
+  );
+};
 
 export default function LocationSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [activeIndex, setActiveIndex] =
+    useState(0);
+
+  const [cameraFocus, setCameraFocus] =
+    useState({
+      x: 0,
+      y: 0,
+    });
 
   const [dragX, setDragX] = useState(0);
   const [dragY, setDragY] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
 
-  const [cameraFocus, setCameraFocus] = useState({
-    x: 0,
-    y: 0,
-  });
+  const [isDragging, setIsDragging] =
+    useState(false);
 
-  const mapViewportRef =
+  const viewportRef =
     useRef<HTMLDivElement | null>(null);
 
   const pointRefs =
-    useRef<(HTMLButtonElement | null)[]>([]);
+    useRef<(HTMLButtonElement | null)[]>(
+      [],
+    );
 
   const dragStartRef = useRef({
     x: 0,
@@ -115,13 +124,16 @@ export default function LocationSection() {
     locations[activeIndex];
 
   /* =========================================
-     CENTRADO CONTROLADO DEL PIN
+     CENTRAR PIN
+     
+     Esta función SOLO se ejecuta cuando
+     el usuario selecciona un pin.
   ========================================= */
 
-  const calculateFocus = useCallback(
-    (index: number = activeIndex) => {
+  const centerLocation = useCallback(
+    (index: number) => {
       const viewport =
-        mapViewportRef.current;
+        viewportRef.current;
 
       const point =
         pointRefs.current[index];
@@ -130,164 +142,213 @@ export default function LocationSection() {
         return;
       }
 
-      const viewportRect =
-        viewport.getBoundingClientRect();
-
-      const pointRect =
-        point.getBoundingClientRect();
-
       /*
-       * No buscamos el centro matemático exacto
-       * del viewport.
-       *
-       * Lo llevamos ligeramente hacia el centro
-       * visual para que el resultado sea natural.
+       * Quitamos solamente el drag manual
+       * anterior para poder medir la posición
+       * del pin desde la cámara actual.
        */
-      const targetX =
-        viewportRect.left +
-        viewportRect.width * 0.5;
-
-      const targetY =
-        viewportRect.top +
-        viewportRect.height * 0.47;
-
-      const pointCenterX =
-        pointRect.left +
-        pointRect.width / 2;
-
-      const pointCenterY =
-        pointRect.top +
-        pointRect.height / 2;
-
-      let deltaX =
-        targetX - pointCenterX;
-
-      let deltaY =
-        targetY - pointCenterY;
-
-      /*
-       * Limitamos el movimiento de cámara.
-       *
-       * Así un pin en un extremo del mapa
-       * no provoca un desplazamiento excesivo.
-       */
-      deltaX = clamp(deltaX, -260, 260);
-      deltaY = clamp(deltaY, -170, 170);
-
-      setCameraFocus({
-        x: deltaX,
-        y: deltaY,
-      });
-
       setDragX(0);
       setDragY(0);
+
+      requestAnimationFrame(() => {
+        const viewportElement =
+          viewportRef.current;
+
+        const pointElement =
+          pointRefs.current[index];
+
+        if (
+          !viewportElement ||
+          !pointElement
+        ) {
+          return;
+        }
+
+        const viewportRect =
+          viewportElement.getBoundingClientRect();
+
+        const pointRect =
+          pointElement.getBoundingClientRect();
+
+        const viewportCenterX =
+          viewportRect.left +
+          viewportRect.width / 2;
+
+        const viewportCenterY =
+          viewportRect.top +
+          viewportRect.height *
+            0.43;
+
+        const pointCenterX =
+          pointRect.left +
+          pointRect.width / 2;
+
+        const pointCenterY =
+          pointRect.top +
+          pointRect.height / 2;
+
+        const isMobile =
+          window.innerWidth <= 768;
+
+        const isTablet =
+          window.innerWidth > 768 &&
+          window.innerWidth <= 1100;
+
+        let deltaX =
+          viewportCenterX -
+          pointCenterX;
+
+        let deltaY =
+          viewportCenterY -
+          pointCenterY;
+
+        /*
+         * LIMITES DE ENFOQUE
+         *
+         * El centrado nunca puede sacar
+         * exageradamente el mapa.
+         */
+        if (isMobile) {
+          deltaX = clamp(
+            deltaX,
+            -125,
+            125,
+          );
+
+          deltaY = clamp(
+            deltaY,
+            -75,
+            75,
+          );
+        } else if (isTablet) {
+          deltaX = clamp(
+            deltaX,
+            -190,
+            190,
+          );
+
+          deltaY = clamp(
+            deltaY,
+            -110,
+            110,
+          );
+        } else {
+          deltaX = clamp(
+            deltaX,
+            -260,
+            260,
+          );
+
+          deltaY = clamp(
+            deltaY,
+            -155,
+            155,
+          );
+        }
+
+        setCameraFocus({
+          x: deltaX,
+          y: deltaY,
+        });
+      });
     },
-    [activeIndex],
+    [],
   );
 
-  /*
-   * Centrado inicial.
-   */
+  /* =========================================
+     CENTRADO INICIAL
+     
+     Una sola vez al montar.
+     NO vuelve a ejecutarse por activeIndex.
+  ========================================= */
+
   useLayoutEffect(() => {
     const frame =
-      window.requestAnimationFrame(() => {
-        calculateFocus(0);
+      requestAnimationFrame(() => {
+        const viewport =
+          viewportRef.current;
+
+        const point =
+          pointRefs.current[0];
+
+        if (!viewport || !point) {
+          return;
+        }
+
+        const viewportRect =
+          viewport.getBoundingClientRect();
+
+        const pointRect =
+          point.getBoundingClientRect();
+
+        const viewportCenterX =
+          viewportRect.left +
+          viewportRect.width / 2;
+
+        const viewportCenterY =
+          viewportRect.top +
+          viewportRect.height *
+            0.43;
+
+        const pointCenterX =
+          pointRect.left +
+          pointRect.width / 2;
+
+        const pointCenterY =
+          pointRect.top +
+          pointRect.height / 2;
+
+        const isMobile =
+          window.innerWidth <= 768;
+
+        const deltaX =
+          viewportCenterX -
+          pointCenterX;
+
+        const deltaY =
+          viewportCenterY -
+          pointCenterY;
+
+        setCameraFocus({
+          x: isMobile
+            ? clamp(deltaX, -125, 125)
+            : clamp(deltaX, -260, 260),
+
+          y: isMobile
+            ? clamp(deltaY, -75, 75)
+            : clamp(deltaY, -155, 155),
+        });
       });
 
     return () => {
-      window.cancelAnimationFrame(frame);
+      cancelAnimationFrame(frame);
     };
-  }, [calculateFocus]);
-
-  /*
-   * Cuando cambia el pin, esperamos un frame
-   * para medir su posición real antes de mover
-   * la cámara.
-   */
-  useEffect(() => {
-    const frame =
-      window.requestAnimationFrame(() => {
-        calculateFocus(activeIndex);
-      });
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-    };
-  }, [activeIndex, calculateFocus]);
-
-  /*
-   * Recalcular al redimensionar.
-   */
-  useEffect(() => {
-    const handleResize = () => {
-      calculateFocus(activeIndex);
-    };
-
-    window.addEventListener(
-      "resize",
-      handleResize,
-    );
-
-    return () => {
-      window.removeEventListener(
-        "resize",
-        handleResize,
-      );
-    };
-  }, [activeIndex, calculateFocus]);
+  }, []);
 
   /* =========================================
-     AUTOPLAY
+     SELECT LOCATION
+     
+     SOLO TAP / CLICK
   ========================================= */
 
-  useEffect(() => {
-    if (isPaused || isDragging) {
-      return;
-    }
-
-    const timer = window.setInterval(() => {
-      setActiveIndex((current) => {
-        return (
-          (current + 1) %
-          locations.length
-        );
-      });
-
-      setDragX(0);
-      setDragY(0);
-    }, 5000);
-
-    return () => {
-      window.clearInterval(timer);
-    };
-  }, [isPaused, isDragging]);
-
-  /* =========================================
-     ACTIVAR UBICACIÓN
-  ========================================= */
-
-  const activateLocation = (
+  const selectLocation = (
     index: number,
   ) => {
     setActiveIndex(index);
 
-    setDragX(0);
-    setDragY(0);
-
-    setIsPaused(true);
-
-    window.setTimeout(() => {
-      setIsPaused(false);
-    }, 6500);
+    centerLocation(index);
   };
 
   /* =========================================
-     DRAG START
+     POINTER DOWN
   ========================================= */
 
   const handlePointerDown = (
     event: ReactPointerEvent<HTMLDivElement>,
   ) => {
+    /*
+     * Solo touch y pen.
+     */
     if (event.pointerType === "mouse") {
       return;
     }
@@ -295,6 +356,9 @@ export default function LocationSection() {
     const target =
       event.target as HTMLElement;
 
+    /*
+     * Los botones no inician drag.
+     */
     if (target.closest("button")) {
       return;
     }
@@ -317,11 +381,12 @@ export default function LocationSection() {
     );
 
     setIsDragging(true);
-    setIsPaused(true);
   };
 
   /* =========================================
-     DRAG MOVE
+     POINTER MOVE
+     
+     EL SWIPE ES TOTALMENTE MANUAL.
   ========================================= */
 
   const handlePointerMove = (
@@ -342,19 +407,82 @@ export default function LocationSection() {
       event.clientY -
       dragStartRef.current.y;
 
-    const maxX = 135;
-    const maxY = 95;
+    const viewportWidth =
+      viewportRef.current?.clientWidth ??
+      window.innerWidth;
+
+    const viewportHeight =
+      viewportRef.current?.clientHeight ??
+      window.innerHeight;
+
+    const isMobile =
+      window.innerWidth <= 768;
+
+    const isTablet =
+      window.innerWidth > 768 &&
+      window.innerWidth <= 1100;
+
+    /*
+     * El rango se calcula proporcionalmente
+     * a la pantalla y además tiene un mínimo.
+     *
+     * Esto permite recorrer todo el mapa
+     * en ambas direcciones.
+     */
+    let maxX =
+      Math.max(
+        viewportWidth * 0.62,
+        360,
+      );
+
+    let maxY =
+      Math.max(
+        viewportHeight * 0.23,
+        130,
+      );
+
+    let sensitivity = 0.78;
+
+    if (isMobile) {
+      maxX =
+        Math.max(
+          viewportWidth * 1.05,
+          430,
+        );
+
+      maxY =
+        Math.max(
+          viewportHeight * 0.42,
+          190,
+        );
+
+      sensitivity = 0.82;
+    } else if (isTablet) {
+      maxX =
+        Math.max(
+          viewportWidth * 0.75,
+          300,
+        );
+
+      maxY =
+        Math.max(
+          viewportHeight * 0.3,
+          140,
+        );
+
+      sensitivity = 0.74;
+    }
 
     const nextX = clamp(
       dragOriginRef.current.x +
-        deltaX * 0.72,
+        deltaX * sensitivity,
       -maxX,
       maxX,
     );
 
     const nextY = clamp(
       dragOriginRef.current.y +
-        deltaY * 0.72,
+        deltaY * sensitivity,
       -maxY,
       maxY,
     );
@@ -364,7 +492,7 @@ export default function LocationSection() {
   };
 
   /* =========================================
-     DRAG END
+     POINTER END
   ========================================= */
 
   const handlePointerEnd = (
@@ -388,192 +516,184 @@ export default function LocationSection() {
     }
 
     setIsDragging(false);
-
-    window.setTimeout(() => {
-      setIsPaused(false);
-    }, 3500);
   };
 
   return (
     <section className={styles.section}>
       {/* =====================================
-          MAPA
+          MAP VIEWPORT
       ===================================== */}
 
       <div
-        ref={mapViewportRef}
+        ref={viewportRef}
         className={styles.mapViewport}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerEnd}
         onPointerCancel={handlePointerEnd}
       >
-        <div
-          className={`${styles.mapCamera} ${
-            isDragging
-              ? styles.mapCameraDragging
-              : ""
-          }`}
-          style={
-            {
-              "--camera-focus-x": `${cameraFocus.x}px`,
-              "--camera-focus-y": `${cameraFocus.y}px`,
-              "--drag-x": `${dragX}px`,
-              "--drag-y": `${dragY}px`,
-            } as React.CSSProperties
-          }
-        >
-          <div className={styles.mapPlane}>
-            <Image
-              src="/media/location.png"
-              alt="Mapa arquitectónico de Huancayo"
-              fill
-              sizes="(max-width: 768px) 180vw, 140vw"
-              className={styles.mapImage}
-              priority
-            />
-
+        <div className={styles.mapCamera}>
+          <div
+            className={`${styles.mapPan} ${
+              isDragging
+                ? styles.mapPanDragging
+                : ""
+            }`}
+            style={
+              {
+                "--camera-focus-x": `${cameraFocus.x}px`,
+                "--camera-focus-y": `${cameraFocus.y}px`,
+                "--drag-x": `${dragX}px`,
+                "--drag-y": `${dragY}px`,
+              } as React.CSSProperties
+            }
+          >
             <div
-              className={styles.mapOverlay}
-              aria-hidden="true"
-            />
+              className={styles.mapPlane}
+            >
+              <Image
+                src="/media/location.png"
+                alt="Mapa arquitectónico de Huancayo"
+                fill
+                priority
+                sizes="(max-width: 768px) 160vw, 130vw"
+                className={styles.mapImage}
+              />
 
-            {/* =================================
-                PINS
-            ================================= */}
+              <div
+                className={
+                  styles.mapOverlay
+                }
+                aria-hidden="true"
+              />
 
-            <div className={styles.points}>
-              {locations.map(
-                (location, index) => {
-                  const isActive =
-                    activeIndex === index;
+              {/* =================================
+                  PINS
+              ================================= */}
 
-                  const isMain =
-                    index === 0;
+              <div className={styles.points}>
+                {locations.map(
+                  (
+                    location,
+                    index,
+                  ) => {
+                    const isActive =
+                      index ===
+                      activeIndex;
 
-                  return (
-                    <button
-                      key={location.id}
-                      ref={(element) => {
-                        pointRefs.current[
-                          index
-                        ] = element;
-                      }}
-                      type="button"
-                      className={`${styles.point} ${
-                        isActive
-                          ? styles.pointActive
-                          : ""
-                      } ${
-                        isMain
-                          ? styles.pointMain
-                          : styles.pointReference
-                      }`}
-                      style={{
-                        left: `${location.x}%`,
-                        top: `${location.y}%`,
-                      }}
-                      onMouseEnter={() => {
-                        if (!isDragging) {
-                          activateLocation(
+                    const isMain =
+                      index === 0;
+
+                    return (
+                      <button
+                        key={location.id}
+                        ref={(element) => {
+                          pointRefs.current[
+                            index
+                          ] = element;
+                        }}
+                        type="button"
+                        className={`${styles.point} ${
+                          isActive
+                            ? styles.pointActive
+                            : ""
+                        } ${
+                          isMain
+                            ? styles.pointMain
+                            : styles.pointReference
+                        }`}
+                        style={{
+                          left: `${location.x}%`,
+                          top: `${location.y}%`,
+                        }}
+                        onClick={() =>
+                          selectLocation(
                             index,
-                          );
+                          )
                         }
-                      }}
-                      onFocus={() =>
-                        activateLocation(
-                          index,
-                        )
-                      }
-                      onClick={() =>
-                        activateLocation(
-                          index,
-                        )
-                      }
-                      aria-label={`Mostrar ${location.title}`}
-                      aria-pressed={isActive}
-                    >
-                      {isMain ? (
-                        <>
-                          <span
-                            className={
-                              styles.mainShadow
-                            }
-                          />
-
-                          <span
-                            className={
-                              styles.mainStem
-                            }
-                          />
-
-                          <span
-                            className={
-                              styles.mainBase
-                            }
-                          />
-
-                          <span
-                            className={
-                              styles.buildingPin
-                            }
-                          >
-                            <Image
-                              src="/media/location/ancosur-pin.png"
-                              alt=""
-                              fill
-                              sizes="100px"
-                              className={
-                                styles.buildingImage
-                              }
-                            />
-                          </span>
-
-                          <span
-                            className={
-                              styles.mainPulse
-                            }
-                          />
-                        </>
-                      ) : (
-                        <>
-                          <span
-                            className={
-                              styles.referenceShadow
-                            }
-                          />
-
-                          <span
-                            className={
-                              styles.referenceStem
-                            }
-                          />
-
-                          <span
-                            className={
-                              styles.referencePin
-                            }
-                          >
+                        aria-label={`Mostrar ${location.title}`}
+                        aria-pressed={
+                          isActive
+                        }
+                      >
+                        {isMain ? (
+                          <>
                             <span
                               className={
-                                styles.referenceNumber
+                                styles.mainHalo
+                              }
+                            />
+
+                            <span
+                              className={
+                                styles.mainStem
+                              }
+                            />
+
+                            <span
+                              className={
+                                styles.mainMarker
                               }
                             >
-                              {location.number}
+                              <Image
+                                src="/media/location/ancosur-pin.png"
+                                alt=""
+                                fill
+                                sizes="100px"
+                                className={
+                                  styles.buildingImage
+                                }
+                              />
                             </span>
-                          </span>
 
-                          <span
-                            className={
-                              styles.referencePulse
-                            }
-                          />
-                        </>
-                      )}
-                    </button>
-                  );
-                },
-              )}
+                            <span
+                              className={
+                                styles.mainDot
+                              }
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <span
+                              className={
+                                styles.referenceHalo
+                              }
+                            />
+
+                            <span
+                              className={
+                                styles.referenceStem
+                              }
+                            />
+
+                            <span
+                              className={
+                                styles.referenceMarker
+                              }
+                            >
+                              <span
+                                className={
+                                  styles.referenceNumber
+                                }
+                              >
+                                {
+                                  location.number
+                                }
+                              </span>
+                            </span>
+
+                            <span
+                              className={
+                                styles.referenceDot
+                              }
+                            />
+                          </>
+                        )}
+                      </button>
+                    );
+                  },
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -582,9 +702,7 @@ export default function LocationSection() {
           className={styles.dragHint}
           aria-hidden="true"
         >
-          <span>
-            DESLIZA PARA EXPLORAR
-          </span>
+          DESLIZA PARA EXPLORAR
         </div>
       </div>
 
@@ -628,13 +746,17 @@ export default function LocationSection() {
             className={styles.locationImage}
           />
 
-          <span className={styles.imageNumber}>
+          <span
+            className={styles.imageNumber}
+          >
             {activeLocation.number}
           </span>
         </div>
 
         <div className={styles.infoContent}>
-          <span className={styles.infoEyebrow}>
+          <span
+            className={styles.infoEyebrow}
+          >
             REFERENCIA
           </span>
 
@@ -685,7 +807,7 @@ export default function LocationSection() {
       </div>
 
       {/* =====================================
-          NAVEGACIÓN
+          NAVIGATION
       ===================================== */}
 
       <nav
@@ -706,24 +828,14 @@ export default function LocationSection() {
                     ? styles.navigationItemActive
                     : ""
                 }`}
-                onMouseEnter={() => {
-                  if (!isDragging) {
-                    activateLocation(
-                      index,
-                    );
-                  }
-                }}
-                onFocus={() =>
-                  activateLocation(
-                    index,
-                  )
-                }
                 onClick={() =>
-                  activateLocation(
+                  selectLocation(
                     index,
                   )
                 }
-                aria-pressed={isActive}
+                aria-pressed={
+                  isActive
+                }
               >
                 <span>
                   {location.number}

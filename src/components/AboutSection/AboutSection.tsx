@@ -206,27 +206,7 @@ export default function AboutSection() {
 
         </div>
       </div>
-
-      {/* =========================================
-          NUMERO GIGANTE
-      ========================================== */}
-
-      <ScrollAnimationTrigger
-        effect="scale"
-        threshold={0.05}
-        once
-        duration={1.2}
-        fromScale={0.9}
-        toScale={1}
-        className={styles.backgroundNumberAnimation}
-      >
-        <div
-          className={styles.backgroundNumber}
-          aria-hidden="true"
-        >
-          01
-        </div>
-      </ScrollAnimationTrigger>
+       
 
       {/* =========================================
           LINEA INFERIOR
