@@ -1,21 +1,29 @@
 .section {
   position: relative;
+
   width: calc(100vw - 74px);
-  margin-left: 74px;
   min-height: 100svh;
+
+  margin-left: 74px;
+
   overflow: hidden;
-  background: var(--color-dark);
+
+  background: #163a3b;
   color: #ffffff;
+
+  isolation: isolate;
 }
 
-/* =========================
-   IMÁGENES
-========================= */
+/* =========================================
+   BACKGROUNDS
+========================================= */
 
 .backgrounds {
   position: absolute;
   inset: 0;
+
   z-index: 0;
+
   overflow: hidden;
 }
 
@@ -24,77 +32,185 @@
   inset: 0;
 
   visibility: hidden;
+
   opacity: 0;
-  transform: scale(1.045);
+
+  transform:
+    scale(1.04);
 
   transition:
-    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1200ms cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 0s linear 900ms;
+    opacity 900ms
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+    transform 1500ms
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+    visibility 0s
+      linear
+      900ms;
 }
 
 .backgroundLayerActive {
   visibility: visible;
+
   opacity: 1;
-  transform: scale(1);
+
+  transform:
+    scale(1);
 
   transition:
-    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1200ms cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 0s linear 0s;
+    opacity 900ms
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+    transform 1500ms
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+    visibility 0s
+      linear
+      0s;
 }
 
 .backgroundImage {
   object-fit: cover;
-  object-position: center center;
+
+  object-position:
+    center center;
 }
 
-/* =========================
-   CONTENEDOR
-========================= */
+.backgroundShade {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(
+        0,
+        0,
+        0,
+        0.5
+      ) 0%,
+      rgba(
+        0,
+        0,
+        0,
+        0.15
+      ) 42%,
+      rgba(
+        0,
+        0,
+        0,
+        0.24
+      ) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(
+        0,
+        0,
+        0,
+        0.14
+      ) 0%,
+      rgba(
+        0,
+        0,
+        0,
+        0.04
+      ) 45%,
+      rgba(
+        0,
+        0,
+        0,
+        0.32
+      ) 100%
+    );
+
+  pointer-events: none;
+}
+
+/* =========================================
+   WRAPPER
+========================================= */
 
 .wrapper {
   position: relative;
-  z-index: 1;
 
-  width: min(calc(100% - 70px), 1480px);
+  z-index: 2;
+
+  width:
+    min(
+      calc(100% - 80px),
+      1480px
+    );
+
   min-height: 100svh;
 
   margin-inline: auto;
 }
 
-/* =========================
-   MARCA
-========================= */
+/* =========================================
+   BRAND
+========================================= */
 
 .brand {
   position: absolute;
+
   top: 28px;
   left: 0;
 
-  color: var(--color-accent);
+  color:
+    var(--color-accent);
 
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.17em;
+
   line-height: 1;
+
+  letter-spacing: 0.17em;
 
   text-transform: uppercase;
 
   text-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.55);
+    0 2px 8px
+    rgba(
+      0,
+      0,
+      0,
+      0.5
+    );
 }
 
-/* =========================
-   FRASE PRINCIPAL
-========================= */
+/* =========================================
+   MAIN TITLE
+========================================= */
 
 .titleWrapper {
   position: absolute;
-  top: 110px;
-  right: -50px;
 
-  width: min(54vw, 720px);
+  top: 104px;
+  right: -12px;
+
+  width:
+    min(
+      58vw,
+      760px
+    );
 }
 
 .title {
@@ -104,17 +220,40 @@
 
   margin: 0;
 
-  font-family: var(--font-display), serif;
-  font-size: clamp(68px, 7.1vw, 120px);
+  font-family:
+    var(--font-display),
+    serif;
+
+  font-size:
+    clamp(
+      62px,
+      6.7vw,
+      112px
+    );
+
   font-weight: 400;
+
+  line-height: 0.8;
+
   letter-spacing: -0.06em;
-  line-height: 0.78;
 
   text-align: right;
 
   text-shadow:
-    0 3px 14px rgba(0, 0, 0, 0.5),
-    0 1px 3px rgba(0, 0, 0, 0.35);
+    0 3px 14px
+      rgba(
+        0,
+        0,
+        0,
+        0.48
+      ),
+    0 1px 3px
+      rgba(
+        0,
+        0,
+        0,
+        0.3
+      );
 }
 
 .title span {
@@ -122,68 +261,130 @@
 }
 
 .title em {
-  color: var(--color-accent);
+  color:
+    var(--color-accent);
+
   font-style: italic;
 }
 
-/* =========================
-   CITA
-========================= */
+/* =========================================
+   BOTTOM CONTENT
+========================================= */
+
+.bottomContent {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 76px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(280px, 380px)
+    minmax(280px, 1fr);
+
+  align-items: end;
+
+  gap: 90px;
+}
+
+/* =========================================
+   QUOTE
+========================================= */
 
 .quoteWrapper {
-  position: absolute;
-  left: 0;
-  bottom: 245px;
+  position: relative;
 
-  width: 355px;
+  width: 100%;
 
-  z-index: 3;
+  padding-left: 24px;
 }
 
 .quote {
   position: relative;
 
-  display: block;
+  width: 100%;
 
-  padding: 0 24px;
+  padding:
+    0
+    25px 0 22px;
 
   animation:
-    quoteEnter 500ms cubic-bezier(0.22, 1, 0.36, 1)
+    quoteEnter
+    500ms
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    )
     both;
 }
 
 .quote p {
   margin: 0;
 
+  max-width: 355px;
+
   color: #ffffff;
 
-  font-family: var(--font-display), serif;
-  font-size: 19px;
+  font-family:
+    var(--font-display),
+    serif;
+
+  font-size:
+    clamp(
+      18px,
+      1.35vw,
+      21px
+    );
+
   font-weight: 500;
-  line-height: 1.45;
+
+  line-height: 1.42;
+
   letter-spacing: -0.012em;
 
   text-shadow:
-    0 2px 10px rgba(0, 0, 0, 0.7);
+    0 2px 10px
+      rgba(
+        0,
+        0,
+        0,
+        0.66
+      );
 }
 
 .quoteOpen,
 .quoteClose {
   position: absolute;
 
-  color: #e7d2a6;
+  color:
+    #e7d2a6;
 
-  font-family: var(--font-display), serif;
+  font-family:
+    var(--font-display),
+    serif;
+
   font-size: 34px;
+
   font-weight: 500;
+
   line-height: 1;
 
   text-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.55);
+    0 2px 8px
+      rgba(
+        0,
+        0,
+        0,
+        0.5
+      );
 }
 
 .quoteOpen {
-  top: -4px;
+  top: -5px;
   left: 0;
 }
 
@@ -193,394 +394,635 @@
 }
 
 @keyframes quoteEnter {
-  0% {
+  from {
     opacity: 0;
-    transform: translateY(10px);
+
+    transform:
+      translateY(10px);
   }
 
-  100% {
+  to {
     opacity: 1;
-    transform: translateY(0);
+
+    transform:
+      translateY(0);
   }
 }
 
-/* =========================
-   PRINCIPIOS
-========================= */
+/* =========================================
+   PRINCIPLES
+   BOTONES
+========================================= */
 
 .principles {
-  position: absolute;
-  left: 0;
-  bottom: 80px;
-
   display: flex;
+
   flex-direction: column;
-  gap: 20px;
 
-  width: 330px;
+  gap: 10px;
 
-  z-index: 3;
+  width: min(
+    100%,
+    470px
+  );
+
+  justify-self: end;
 }
 
 .principleAnimation {
   min-width: 0;
 }
 
+/*
+ * El botón ahora tiene una verdadera
+ * superficie interactiva.
+ */
 .principle {
-  display: flex;
-  align-items: baseline;
+  position: relative;
 
-  width: fit-content;
-  padding: 0;
+  display: grid;
 
-  border: 0;
-  background: transparent;
+  grid-template-columns:
+    36px minmax(0, 1fr)
+    34px;
+
+  align-items: center;
+
+  width: 100%;
+
+  min-height: 72px;
+
+  padding:
+    10px
+    14px
+    10px
+    16px;
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.25
+    );
+
+  background:
+    rgba(
+      22,
+      58,
+      59,
+      0.26
+    );
 
   color: #ffffff;
 
-  appearance: none;
+  text-align: left;
+
   cursor: pointer;
 
+  appearance: none;
+
+  backdrop-filter:
+    blur(5px);
+
+  -webkit-backdrop-filter:
+    blur(5px);
+
   transition:
-    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 250ms ease;
+    background 280ms ease,
+    border-color 280ms ease,
+    transform 280ms
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+    box-shadow 280ms ease;
+}
+
+/*
+ * Barra de selección.
+ */
+.principle::before {
+  content: "";
+
+  position: absolute;
+
+  left: -1px;
+  top: -1px;
+  bottom: -1px;
+
+  width: 2px;
+
+  background:
+    var(--color-accent);
+
+  opacity: 0;
+
+  transform:
+    scaleY(0.45);
+
+  transition:
+    opacity 280ms ease,
+    transform 280ms
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      );
 }
 
 .principle:hover {
-  transform: translateX(8px);
+  transform:
+    translateX(-6px);
+
+  border-color:
+    rgba(
+      231,
+      210,
+      166,
+      0.65
+    );
+
+  background:
+    rgba(
+      22,
+      58,
+      59,
+      0.55
+    );
+
+  box-shadow:
+    0 12px 28px
+      rgba(
+        0,
+        0,
+        0,
+        0.16
+      );
 }
 
 .principleActive {
-  transform: translateX(8px);
+  transform:
+    translateX(-8px);
+
+  border-color:
+    rgba(
+      231,
+      210,
+      166,
+      0.8
+    );
+
+  background:
+    rgba(
+      22,
+      58,
+      59,
+      0.7
+    );
+
+  box-shadow:
+    0 14px 32px
+      rgba(
+        0,
+        0,
+        0,
+        0.2
+      );
 }
 
-/* =========================
-   NÚMERO
-========================= */
+.principleActive::before {
+  opacity: 1;
 
-.number {
-  flex: 0 0 auto;
+  transform:
+    scaleY(1);
+}
 
-  width: 25px;
-  margin-right: 17px;
+/* =========================================
+   NUMBER
+========================================= */
 
-  color: var(--color-accent);
+.principleNumber {
+  align-self: center;
+
+  color:
+    var(--color-accent);
 
   font-size: 10px;
+
   font-weight: 700;
-  letter-spacing: 0.13em;
+
   line-height: 1;
 
-  text-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.12em;
 }
 
-/* =========================
-   NOMBRE
-========================= */
+/* =========================================
+   BUTTON TEXT
+========================================= */
+
+.principleText {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  gap: 5px;
+
+  min-width: 0;
+}
 
 .principleTitle {
-  color: rgba(255, 255, 255, 0.68);
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.72
+    );
 
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0.035em;
+  font-size:
+    clamp(
+      15px,
+      1.2vw,
+      18px
+    );
+
+  font-weight: 700;
+
   line-height: 1;
 
-  text-shadow:
-    0 2px 9px rgba(0, 0, 0, 0.65);
+  letter-spacing: 0.04em;
 
   transition:
     color 250ms ease,
     letter-spacing 250ms ease;
 }
 
-.principle:hover .principleTitle,
-.principleActive .principleTitle {
-  color: #ffffff;
-  letter-spacing: 0.055em;
-}
+.principleAction {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.38
+    );
 
-/* =========================
-   INDICADOR
-========================= */
+  font-size: 7px;
 
-.principleIndicator {
-  width: 0;
-  height: 1px;
-  margin-left: 12px;
+  font-weight: 700;
 
-  background: var(--color-accent);
+  line-height: 1;
+
+  letter-spacing: 0.14em;
 
   opacity: 0;
 
+  transform:
+    translateY(3px);
+
   transition:
-    width 300ms ease,
-    opacity 250ms ease;
+    opacity 220ms ease,
+    transform 220ms ease,
+    color 220ms ease;
 }
 
-.principle:hover .principleIndicator,
-.principleActive .principleIndicator {
-  width: 22px;
+.principle:hover
+.principleTitle,
+.principleActive
+.principleTitle {
+  color: #ffffff;
+
+  letter-spacing: 0.06em;
+}
+
+.principle:hover
+.principleAction,
+.principleActive
+.principleAction {
   opacity: 1;
+
+  transform:
+    translateY(0);
 }
 
-/* =========================
-   CONTADOR
-========================= */
+.principleActive
+.principleAction {
+  color:
+    var(--color-accent);
+}
+
+/* =========================================
+   ARROW
+========================================= */
+
+.principleArrow {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.3
+    );
+
+  border-radius: 50%;
+
+  transition:
+    border-color 250ms ease,
+    background 250ms ease,
+    transform 300ms
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      );
+}
+
+.principleArrow::after {
+  content: "";
+
+  position: absolute;
+
+  width: 7px;
+  height: 7px;
+
+  border-top:
+    1px solid
+    currentColor;
+
+  border-right:
+    1px solid
+    currentColor;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.62
+    );
+
+  transform:
+    rotate(45deg);
+}
+
+.principleArrow span {
+  position: absolute;
+
+  width: 11px;
+  height: 1px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.62
+    );
+
+  transform:
+    translateX(-2px);
+}
+
+.principleArrow span + span {
+  display: none;
+}
+
+.principle:hover
+.principleArrow {
+  border-color:
+    var(--color-accent);
+
+  background:
+    rgba(
+      198,
+      165,
+      106,
+      0.12
+    );
+
+  transform:
+    translateX(2px);
+}
+
+.principleActive
+.principleArrow {
+  border-color:
+    var(--color-accent);
+
+  background:
+    var(--color-accent);
+
+  transform:
+    translateX(2px);
+}
+
+.principleActive
+.principleArrow::after {
+  color:
+    #163a3b;
+}
+
+.principleActive
+.principleArrow span {
+  background:
+    #163a3b;
+}
+
+/* =========================================
+   COUNTER
+========================================= */
 
 .counter {
   position: absolute;
+
   right: 0;
-  bottom: 30px;
+  bottom: 25px;
 
   display: flex;
+
   align-items: center;
+
   gap: 7px;
 
-  color: rgba(255, 255, 255, 0.72);
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.7
+    );
 
   font-size: 9px;
+
   font-weight: 700;
+
+  line-height: 1;
+
   letter-spacing: 0.12em;
 
   text-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.55);
+    0 2px 8px
+      rgba(
+        0,
+        0,
+        0,
+        0.5
+      );
 }
 
 .counter span:first-child {
-  color: var(--color-accent);
+  color:
+    var(--color-accent);
 }
 
-/* =========================
-   TABLET
-========================= */
+.counterSlash {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.4
+    );
+}
 
-@media (max-width: 1100px) {
+/* =========================================
+   LAPTOP
+========================================= */
+
+@media (max-width: 1366px) and (min-width: 1101px) {
   .wrapper {
-    width: min(calc(100% - 56px), 920px);
+    width:
+      min(
+        calc(100% - 64px),
+        1240px
+      );
   }
 
   .titleWrapper {
-    width: min(57vw, 580px);
+    top: 92px;
+
+    right: 0;
+
+    width: 56vw;
   }
 
   .title {
-    font-size: clamp(58px, 7.5vw, 96px);
+    font-size:
+      clamp(
+        58px,
+        6.5vw,
+        94px
+      );
   }
 
-  .quoteWrapper {
-    bottom: 215px;
-    width: 300px;
+  .bottomContent {
+    bottom: 68px;
+
+    grid-template-columns:
+      320px minmax(
+        280px,
+        430px
+      );
+
+    gap: 48px;
   }
 
   .quote p {
-    font-size: 17px;
+    font-size: 18px;
   }
 
-  .principles {
-    bottom: 60px;
-    width: 280px;
+  .principle {
+    min-height: 66px;
   }
 
   .principleTitle {
-    font-size: 17px;
+    font-size: 16px;
   }
 }
 
-/* =========================
-   TABLET PEQUEÑA
-========================= */
+/* =========================================
+   TABLET
+========================================= */
 
-@media (max-width: 1024px) {
+@media (max-width: 1100px) and (min-width: 769px) {
   .section {
     width: calc(100vw - 64px);
     margin-left: 64px;
   }
 
   .wrapper {
-    width: min(calc(100% - 48px), 880px);
+    width:
+      calc(100% - 52px);
   }
-
-  .titleWrapper {
-    top: 25px;
-    width: min(60vw, 520px);
-  }
-
-  .title {
-    font-size: clamp(54px, 8vw, 88px);
-  }
-
-  .quoteWrapper {
-    width: 265px;
-    bottom: 195px;
-  }
-
-  .quote p {
-    font-size: 16px;
-  }
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 768px) {
-  .section {
-    width: 100%;
-    margin-left: 0;
-    min-height: 100svh;
-  }
-
-  .backgroundImage {
-    object-position: 58% center;
-  }
-
-  .wrapper {
-    width: 100%;
-    min-height: 100svh;
-
-    padding: 24px 18px 45px;
-  }
-
-  /* MARCA */
 
   .brand {
-    position: static;
-
-    display: block;
-
-    margin: 0;
+    top: 24px;
   }
-
-  /* TÍTULO */
 
   .titleWrapper {
-    position: static;
-
-    width: 100%;
-
-    margin-top: 28px;
-  }
-
-  .title {
-    align-items: flex-end;
-
-    width: 100%;
-
-    font-size: clamp(50px, 14.5vw, 78px);
-    line-height: 0.83;
-  }
-
-  /* CITA */
-
-  .quoteWrapper {
-    position: static;
-
-    width: 100%;
-    max-width: 370px;
-
-    margin-top: 45px;
-  }
-
-  .quote {
-    padding: 0 23px;
-  }
-
-  .quote p {
-    font-size: clamp(17px, 4.4vw, 20px);
-    line-height: 1.45;
-  }
-
-  .quoteOpen,
-  .quoteClose {
-    font-size: 32px;
-  }
-
-  .quoteOpen {
-    left: 1px;
-  }
-
-  .quoteClose {
+    top: 82px;
     right: 0;
-  }
 
-  /* PRINCIPIOS */
-
-  .principles {
-    position: static;
-
-    width: 100%;
-
-    margin-top: 68px;
-
-    gap: 17px;
-  }
-
-  .principle:hover,
-  .principleActive {
-    transform: translateX(5px);
-  }
-
-  .number {
-    width: 23px;
-    margin-right: 14px;
-
-    font-size: 9px;
-  }
-
-  .principleTitle {
-    font-size: 17px;
-  }
-
-  .principleIndicator {
-    width: 18px;
-    opacity: 1;
-  }
-
-  /* CONTADOR */
-
-  .counter {
-    position: static;
-
-    justify-content: flex-end;
-
-    margin-top: 36px;
-  }
-}
-
-/* =========================
-   MOBILE PEQUEÑO
-========================= */
-
-@media (max-width: 420px) {
-  .wrapper {
-    padding-inline: 15px;
-  }
-
-  .brand {
-    font-size: 9px;
-  }
-
-  .titleWrapper {
-    margin-top: 24px;
+    width:
+      min(
+        64vw,
+        570px
+      );
   }
 
   .title {
-    font-size: clamp(47px, 15.5vw, 68px);
+    font-size:
+      clamp(
+        52px,
+        7.2vw,
+        82px
+      );
+
+    line-height: 0.82;
+  }
+
+  .bottomContent {
+    bottom: 54px;
+
+    grid-template-columns:
+      250px minmax(
+        280px,
+        390px
+      );
+
+    gap: 28px;
   }
 
   .quoteWrapper {
-    margin-top: 38px;
+    padding-left: 14px;
   }
 
   .quote {
-    padding: 0 20px;
+    padding-left: 19px;
+    padding-right: 18px;
   }
 
   .quote p {
     font-size: 16px;
-    line-height: 1.48;
+    line-height: 1.4;
   }
 
   .quoteOpen,
@@ -589,24 +1031,428 @@
   }
 
   .principles {
-    margin-top: 55px;
-    gap: 15px;
+    width: 100%;
+  }
+
+  .principle {
+    min-height: 62px;
+
+    grid-template-columns:
+      30px minmax(0, 1fr)
+      30px;
+
+    padding:
+      8px 11px 8px 12px;
   }
 
   .principleTitle {
-    font-size: 16px;
+    font-size: 14px;
+  }
+
+  .principleAction {
+    font-size: 6px;
+  }
+
+  .principleArrow {
+    width: 27px;
+    height: 27px;
+  }
+
+  .counter {
+    bottom: 18px;
   }
 }
 
-/* =========================
-   REDUCIR MOVIMIENTO
-========================= */
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .section {
+    width: 100%;
+    margin-left: 0;
+
+    min-height: 100svh;
+  }
+
+  .backgroundImage {
+    object-position:
+      55% center;
+  }
+
+  .backgroundShade {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(
+          0,
+          0,
+          0,
+          0.34
+        ) 0%,
+        rgba(
+          0,
+          0,
+          0,
+          0.08
+        ) 32%,
+        rgba(
+          0,
+          0,
+          0,
+          0.28
+        ) 100%
+      );
+  }
+
+  /* =====================================
+     WRAPPER
+  ===================================== */
+
+  .wrapper {
+    width: 100%;
+    min-height: 100svh;
+
+    padding:
+      24px
+      18px
+      34px;
+  }
+
+  /* =====================================
+     BRAND
+  ===================================== */
+
+  .brand {
+    position: static;
+
+    display: block;
+
+    font-size: 9px;
+  }
+
+  /* =====================================
+     TITLE
+  ===================================== */
+
+  .titleWrapper {
+    position: static;
+
+    width: 100%;
+
+    margin-top: 30px;
+  }
+
+  .title {
+    width: 100%;
+
+    font-size:
+      clamp(
+        48px,
+        13.7vw,
+        72px
+      );
+
+    line-height: 0.84;
+
+    letter-spacing: -0.055em;
+  }
+
+  /* =====================================
+     BOTTOM CONTENT
+  ===================================== */
+
+  .bottomContent {
+    position: static;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 0;
+
+    width: 100%;
+
+    margin-top:
+      clamp(
+        46px,
+        9vh,
+        74px
+      );
+  }
+
+  /* =====================================
+     QUOTE
+  ===================================== */
+
+  .quoteWrapper {
+    padding-left: 12px;
+
+    width: 100%;
+  }
+
+  .quote {
+    padding:
+      0
+      24px
+      0
+      18px;
+  }
+
+  .quote p {
+    max-width: 100%;
+
+    font-size:
+      clamp(
+        17px,
+        4.5vw,
+        20px
+      );
+
+    line-height: 1.45;
+  }
+
+  .quoteOpen,
+  .quoteClose {
+    font-size: 30px;
+  }
+
+  .quoteOpen {
+    top: -4px;
+    left: 0;
+  }
+
+  .quoteClose {
+    right: 0;
+    bottom: -7px;
+  }
+
+  /* =====================================
+     PRINCIPLES
+  ===================================== */
+
+  .principles {
+    width: 100%;
+
+    margin-top:
+      clamp(
+        40px,
+        7vh,
+        62px
+      );
+
+    gap: 8px;
+  }
+
+  .principle {
+    grid-template-columns:
+      32px minmax(0, 1fr)
+      32px;
+
+    min-height: 64px;
+
+    padding:
+      9px
+      12px;
+
+    /*
+     * En mobile el botón siempre
+     * debe verse como botón.
+     */
+    border-color:
+      rgba(
+        255,
+        255,
+        255,
+        0.32
+      );
+
+    background:
+      rgba(
+        22,
+        58,
+        59,
+        0.38
+      );
+
+    backdrop-filter:
+      blur(4px);
+
+    -webkit-backdrop-filter:
+      blur(4px);
+  }
+
+  .principle:hover {
+    transform: none;
+  }
+
+  .principleActive {
+    transform: none;
+  }
+
+  .principle::before {
+    width: 2px;
+  }
+
+  .principleNumber {
+    font-size: 8px;
+  }
+
+  .principleTitle {
+    font-size: 14px;
+
+    letter-spacing: 0.045em;
+  }
+
+  .principle:hover
+  .principleTitle,
+  .principleActive
+  .principleTitle {
+    letter-spacing: 0.055em;
+  }
+
+  /*
+   * En mobile el estado del botón
+   * se muestra siempre.
+   */
+  .principleAction {
+    opacity: 1;
+
+    transform:
+      none;
+
+    font-size: 6px;
+  }
+
+  .principleArrow {
+    width: 27px;
+    height: 27px;
+  }
+
+  /* =====================================
+     COUNTER
+  ===================================== */
+
+  .counter {
+    position: static;
+
+    justify-content: flex-end;
+
+    margin-top: 27px;
+
+    font-size: 8px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+  .wrapper {
+    padding:
+      20px
+      15px
+      26px;
+  }
+
+  .titleWrapper {
+    margin-top: 24px;
+  }
+
+  .title {
+    font-size:
+      clamp(
+        44px,
+        14.8vw,
+        63px
+      );
+  }
+
+  .bottomContent {
+    margin-top:
+      40px;
+  }
+
+  .quoteWrapper {
+    padding-left: 8px;
+  }
+
+  .quote {
+    padding-left: 16px;
+    padding-right: 19px;
+  }
+
+  .quote p {
+    font-size: 16px;
+    line-height: 1.46;
+  }
+
+  .quoteOpen,
+  .quoteClose {
+    font-size: 27px;
+  }
+
+  .principles {
+    margin-top: 36px;
+
+    gap: 7px;
+  }
+
+  .principle {
+    grid-template-columns:
+      28px minmax(0, 1fr)
+      29px;
+
+    min-height: 60px;
+
+    padding:
+      8px
+      9px;
+  }
+
+  .principleTitle {
+    font-size: 13px;
+  }
+
+  .principleAction {
+    font-size: 5.5px;
+
+    letter-spacing: 0.11em;
+  }
+
+  .principleArrow {
+    width: 25px;
+    height: 25px;
+  }
+
+  .counter {
+    margin-top: 22px;
+  }
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+.principle:focus-visible {
+  outline:
+    1px solid
+    var(--color-accent);
+
+  outline-offset: 3px;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .backgroundLayer,
   .backgroundLayerActive,
   .principle,
-  .principleIndicator,
+  .principle::before,
+  .principleTitle,
+  .principleAction,
+  .principleArrow,
   .quote {
     transition: none;
     animation: none;
