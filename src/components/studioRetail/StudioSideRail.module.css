@@ -1,5 +1,6 @@
 .rail {
   position: fixed;
+
   inset: 0 auto 0 0;
 
   width: 74px;
@@ -14,6 +15,10 @@
   background: #000000;
   color: #ffffff;
 }
+
+/* =========================================
+   TOP
+========================================= */
 
 .railTop {
   position: relative;
@@ -31,15 +36,24 @@
 
   height: 1px;
 
-  background: rgba(255, 255, 255, 0.16);
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.16
+    );
 }
+
+/* =========================================
+   PROJECTS
+========================================= */
 
 .projectsLabel {
   position: absolute;
 
   top: 80px;
   bottom: 150px;
-
   left: 0;
 
   width: 100%;
@@ -47,10 +61,54 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.66
+    );
+
+  transition:
+    color 300ms ease,
+    background 300ms ease;
+}
+
+.projectsLabel::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 50%;
+
+  width: 2px;
+  height: 44px;
+
+  background: var(--color-accent);
+
+  transform:
+    translateY(-50%)
+    scaleY(0);
+
+  transform-origin: center;
+
+  opacity: 0;
+
+  transition:
+    transform 320ms
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+    opacity 250ms ease;
 }
 
 .projectsLabel span {
-  color: rgba(255, 255, 255, 0.9);
+  display: block;
 
   font-size: 8px;
   font-weight: 500;
@@ -62,18 +120,97 @@
   text-transform: uppercase;
 
   transform: rotate(-90deg);
+
+  transition:
+    transform 300ms
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+    color 300ms ease;
 }
+
+.projectsLabel:hover {
+  color: #ffffff;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.025
+    );
+}
+
+.projectsLabel:hover::before {
+  opacity: 1;
+
+  transform:
+    translateY(-50%)
+    scaleY(1);
+}
+
+.projectsLabel:hover span {
+  transform:
+    rotate(-90deg)
+    translateX(-3px);
+}
+
+/* =========================================
+   ACTIVE PROJECTS
+========================================= */
+
+.projectsLabelActive {
+  color: #ffffff;
+
+  background:
+    rgba(
+      111,
+      130,
+      103,
+      0.07
+    );
+}
+
+.projectsLabelActive::before {
+  opacity: 1;
+
+  transform:
+    translateY(-50%)
+    scaleY(1);
+}
+
+.projectsLabelActive span {
+  color: #ffffff;
+
+  transform:
+    rotate(-90deg)
+    translateX(-3px);
+}
+
+/* =========================================
+   MIDDLE
+========================================= */
 
 .railMiddle {
   position: absolute;
 
   left: 11px;
   right: 11px;
+
   bottom: 190px;
 
   height: 1px;
 
-  background: rgba(255, 255, 255, 0.16);
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.16
+    );
 }
 
 .railMiddle span {
@@ -85,10 +222,16 @@
   width: 5px;
   height: 3px;
 
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%);
 
-  background: var(--color-accent);
+  background:
+    var(--color-accent);
 }
+
+/* =========================================
+   SOCIALS
+========================================= */
 
 .socials {
   position: absolute;
@@ -106,29 +249,87 @@
 }
 
 .socialLink {
+  position: relative;
+
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 
-  color: rgba(255, 255, 255, 0.88);
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.58
+    );
 
   transition:
     color 220ms ease,
-    transform 220ms ease;
+    transform 220ms
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      );
+}
+
+.socialLink::before {
+  content: "";
+
+  position: absolute;
+
+  left: -8px;
+
+  width: 2px;
+  height: 12px;
+
+  background: var(--color-accent);
+
+  opacity: 0;
+
+  transform:
+    scaleY(0.4);
+
+  transition:
+    opacity 220ms ease,
+    transform 220ms
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      );
 }
 
 .socialLink:hover {
-  color: var(--color-accent);
-  transform: translateY(-2px);
+  color: #ffffff;
+
+  transform:
+    translateY(-2px);
+}
+
+.socialLink:hover::before {
+  opacity: 1;
+
+  transform:
+    scaleY(1);
 }
 
 .socialLink svg {
-  width: 13px;
-  height: 13px;
+  display: block;
+
+  width: 15px;
+  height: 15px;
 }
+
+/* =========================================
+   TABLET
+========================================= */
 
 @media (max-width: 1024px) {
   .rail {
@@ -142,10 +343,42 @@
   .projectsLabel {
     top: 72px;
   }
+
+  .projectsLabel span {
+    font-size: 7px;
+  }
+
+  .railMiddle {
+    left: 10px;
+    right: 10px;
+    bottom: 178px;
+  }
+
+  .socials {
+    bottom: 24px;
+  }
 }
+
+/* =========================================
+   MOBILE
+========================================= */
 
 @media (max-width: 768px) {
   .rail {
     display: none;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .projectsLabel,
+  .projectsLabel::before,
+  .projectsLabel span,
+  .socialLink,
+  .socialLink::before {
+    transition: none;
   }
 }

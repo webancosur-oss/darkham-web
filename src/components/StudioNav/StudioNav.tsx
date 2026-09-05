@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import styles from "./StudioNav.module.css";
@@ -10,10 +11,6 @@ const navItems = [
   {
     label: "Inicio",
     href: "/",
-  },
-  {
-    label: "Proyectos",
-    href: "/proyectos",
   },
   {
     label: "Estudio",
@@ -34,6 +31,7 @@ const navItems = [
 ];
 
 export default function StudioNav() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -42,6 +40,14 @@ export default function StudioNav() {
 
   const closeMenu = () => {
     setIsOpen(false);
+  };
+
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+
+    return pathname === href || pathname.startsWith(`${href}/`);
   };
 
   return (
@@ -69,16 +75,23 @@ export default function StudioNav() {
           className={styles.desktopNavigation}
           aria-label="Navegación principal"
         >
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={styles.navLink}
-              onClick={closeMenu}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const active = isActive(item.href);
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`${styles.navLink} ${
+                  active ? styles.navLinkActive : ""
+                }`}
+                onClick={closeMenu}
+                aria-current={active ? "page" : undefined}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* IDIOMAS */}
@@ -90,9 +103,7 @@ export default function StudioNav() {
             ESP
           </button>
 
-          <span className={styles.languageDivider}>
-            -
-          </span>
+          <span className={styles.languageDivider}>-</span>
 
           <button
             type="button"
@@ -109,11 +120,7 @@ export default function StudioNav() {
             isOpen ? styles.mobileMenuOpen : ""
           }`}
           onClick={toggleMenu}
-          aria-label={
-            isOpen
-              ? "Cerrar menú"
-              : "Abrir menú"
-          }
+          aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={isOpen}
           aria-controls="darkham-mobile-menu"
         >
@@ -126,60 +133,39 @@ export default function StudioNav() {
       <div
         id="darkham-mobile-menu"
         className={`${styles.mobilePanel} ${
-          isOpen
-            ? styles.mobilePanelOpen
-            : ""
+          isOpen ? styles.mobilePanelOpen : ""
         }`}
       >
         <nav
           className={styles.mobileNavigation}
           aria-label="Navegación móvil"
         >
-          {navItems.map(
-            (item, index) => (
+          {navItems.map((item, index) => {
+            const active = isActive(item.href);
+
+            return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={
-                  styles.mobileNavLink
-                }
+                className={`${styles.mobileNavLink} ${
+                  active ? styles.mobileNavLinkActive : ""
+                }`}
                 onClick={closeMenu}
-                tabIndex={
-                  isOpen ? 0 : -1
-                }
+                tabIndex={isOpen ? 0 : -1}
+                aria-current={active ? "page" : undefined}
               >
-                <span>
-                  {item.label}
-                </span>
+                <span>{item.label}</span>
 
-                <small>
-                  0{index + 1}
-                </small>
+                <small>0{index + 1}</small>
               </Link>
-            ),
-          )}
+            );
+          })}
         </nav>
 
-        <div
-          className={
-            styles.mobileLanguages
-          }
-        >
-          <span
-            className={
-              styles.languageActive
-            }
-          >
-            ESP
-          </span>
+        <div className={styles.mobileLanguages}>
+          <span className={styles.languageActive}>ESP</span>
 
-          <span
-            className={
-              styles.languageDivider
-            }
-          >
-            -
-          </span>
+          <span className={styles.languageDivider}>-</span>
 
           <span>ENG</span>
         </div>

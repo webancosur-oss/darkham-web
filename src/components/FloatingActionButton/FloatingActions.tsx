@@ -1,16 +1,14 @@
 "use client";
 
 import {
-  ArrowRightIcon,
-  CheckCircleIcon,
-  ChatCircleDotsIcon,
-  CompassIcon,
-  HouseLineIcon,
+  ArrowLeftIcon,
+  CheckIcon,
+  WhatsappLogoIcon,
   XIcon,
 } from "@phosphor-icons/react";
 
+import type { FormEvent } from "react";
 import {
-  FormEvent,
   useEffect,
   useRef,
   useState,
@@ -29,8 +27,7 @@ type ChatStep =
   | "phone"
   | "success";
 
-const WHATSAPP_NUMBER =
-  "51966253873";
+const WHATSAPP_NUMBER = "51966253873";
 
 const optionLabels: Record<
   Interest,
@@ -48,6 +45,28 @@ const optionLabels: Record<
   contacto:
     "Hablar con Darkham",
 };
+
+const options: {
+  id: Interest;
+  title: string;
+}[] = [
+  {
+    id: "proyecto",
+    title: "Desarrollar un proyecto",
+  },
+  {
+    id: "diseno",
+    title: "Diseño y arquitectura",
+  },
+  {
+    id: "consultoria",
+    title: "Consultoría arquitectónica",
+  },
+  {
+    id: "contacto",
+    title: "Hablar con Darkham",
+  },
+];
 
 export default function FloatingActions() {
   const [isOpen, setIsOpen] =
@@ -109,28 +128,39 @@ export default function FloatingActions() {
       const timer =
         window.setTimeout(() => {
           inputRef.current?.focus();
-        }, 140);
+        }, 220);
 
-      return () =>
+      return () => {
         window.clearTimeout(timer);
+      };
     }
   }, [isOpen, step]);
 
   /* =====================================
-     INTEREST
+     SELECT INTEREST
   ===================================== */
 
   const handleInterest = (
     selectedInterest: Interest,
   ) => {
-    setInterest(
-      selectedInterest,
-    );
+    setInterest(selectedInterest);
+    setPhone("");
+    setPhoneError("");
+    setStep("phone");
+  };
+
+  /* =====================================
+     BACK
+  ===================================== */
+
+  const handleBack = () => {
+    if (isSubmitting) {
+      return;
+    }
 
     setPhone("");
     setPhoneError("");
-
-    setStep("phone");
+    setStep("welcome");
   };
 
   /* =====================================
@@ -151,7 +181,7 @@ export default function FloatingActions() {
   const validatePhone = () => {
     if (!/^\d{9}$/.test(phone)) {
       setPhoneError(
-        "Ingresa un número celular válido de 9 dígitos.",
+        "Ingresa un número celular válido.",
       );
 
       return false;
@@ -187,7 +217,7 @@ export default function FloatingActions() {
         }.`,
         `Mi número celular es: ${phone}.`,
         "",
-        "Quisiera conversar sobre mi proyecto y conocer cómo puede ayudarme Darkham.",
+        "Quisiera conversar sobre mi proyecto.",
       ].join("\n");
 
       const whatsappUrl =
@@ -209,7 +239,7 @@ export default function FloatingActions() {
       );
 
       setPhoneError(
-        "No pudimos abrir WhatsApp. Inténtalo nuevamente.",
+        "No pudimos abrir WhatsApp.",
       );
     } finally {
       setIsSubmitting(false);
@@ -231,501 +261,383 @@ export default function FloatingActions() {
     setPhoneError("");
   };
 
+  /* =====================================
+     CLOSE
+  ===================================== */
+
+  const closeChat = () => {
+    if (isSubmitting) {
+      return;
+    }
+
+    setIsOpen(false);
+  };
+
   return (
     <div className={styles.wrapper}>
       {/* =====================================
-          WINDOW
+          PANEL
       ===================================== */}
 
-      {isOpen && (
-        <section
-          className={styles.chatWindow}
-          role="dialog"
-          aria-label="Contacto Darkham Studio"
-          aria-modal="false"
-        >
+      <section
+        className={`${styles.panel} ${
+          isOpen
+            ? styles.panelOpen
+            : ""
+        }`}
+        role="dialog"
+        aria-label="Contacto Darkham"
+        aria-modal="false"
+      >
+        {/* =================================
+            HEADER
+        ================================= */}
+
+        <header className={styles.header}>
+          <div className={styles.brand}>
+            <span>DARKHAM</span>
+
+            <small>
+              ESTUDIO DE ARQUITECTURA
+            </small>
+          </div>
+
+          <button
+            type="button"
+            className={styles.closeButton}
+            onClick={closeChat}
+            aria-label="Cerrar"
+          >
+            <XIcon
+              size={18}
+              weight="regular"
+            />
+          </button>
+        </header>
+
+        {/* =================================
+            CONTENT
+        ================================= */}
+
+        <div className={styles.content}>
           {/* =================================
-              HEADER
+              WELCOME
           ================================= */}
 
-          <header
-            className={
-              styles.chatHeader
-            }
-          >
-            <div
-              className={
-                styles.chatIdentity
-              }
-            >
-              <div
-                className={
-                  styles.chatAvatar
-                }
-              >
-                <span />
+          {step === "welcome" && (
+            <div className={styles.step}>
+              <div className={styles.heading}>
+                <span
+                  className={
+                    styles.numberLarge
+                  }
+                >
+                  01
+                </span>
+
+                <div>
+                  <span
+                    className={
+                      styles.eyebrow
+                    }
+                  >
+                    INICIAR CONVERSACIÓN
+                  </span>
+
+                  <h2>
+                    Cuéntanos sobre
+                    <span>
+                      tu proyecto.
+                    </span>
+                  </h2>
+                </div>
               </div>
 
-              <div
+              <p
                 className={
-                  styles.chatIdentityText
+                  styles.description
                 }
               >
-                <strong>
-                  DARKHAM
-                </strong>
+                Selecciona una opción para
+                comenzar.
+              </p>
 
-                <span>
-                  Studio de arquitectura
-                </span>
+              <div className={styles.options}>
+                {options.map(
+                  (
+                    option,
+                    index,
+                  ) => (
+                    <button
+                      key={option.id}
+                      type="button"
+                      className={
+                        styles.option
+                      }
+                      onClick={() =>
+                        handleInterest(
+                          option.id,
+                        )
+                      }
+                    >
+                      <span
+                        className={
+                          styles.optionNumber
+                        }
+                      >
+                        {String(
+                          index + 1,
+                        ).padStart(
+                          2,
+                          "0",
+                        )}
+                      </span>
+
+                      <span
+                        className={
+                          styles.optionTitle
+                        }
+                      >
+                        {option.title}
+                      </span>
+                    </button>
+                  ),
+                )}
               </div>
             </div>
-
-            <button
-              type="button"
-              className={
-                styles.closeButton
-              }
-              onClick={() =>
-                setIsOpen(false)
-              }
-              aria-label="Cerrar contacto"
-            >
-              <XIcon
-                size={17}
-                weight="regular"
-              />
-            </button>
-          </header>
+          )}
 
           {/* =================================
-              BODY
+              PHONE
           ================================= */}
 
-          <div
-            className={
-              styles.chatBody
-            }
-          >
-            {/* ===============================
-                WELCOME
-            =============================== */}
+          {step === "phone" &&
+            interest && (
+              <div className={styles.step}>
+                <div className={styles.topMeta}>
+                  <button
+                    type="button"
+                    className={
+                      styles.backButton
+                    }
+                    onClick={
+                      handleBack
+                    }
+                  >
+                    <ArrowLeftIcon
+                      size={13}
+                      weight="regular"
+                    />
 
-            {step === "welcome" && (
-              <>
+                    <span>
+                      RETROCEDER
+                    </span>
+                  </button>
+
+                  <span>
+                    02 / 02
+                  </span>
+                </div>
+
                 <div
                   className={
-                    styles.introBlock
+                    styles.headingPhone
                   }
                 >
                   <span
                     className={
-                      styles.introNumber
+                      styles.eyebrow
                     }
                   >
-                    01
+                    CONTACTO
                   </span>
 
-                  <div>
-                    <span
-                      className={
-                        styles.introEyebrow
-                      }
-                    >
-                      INICIAR CONVERSACIÓN
-                    </span>
-
-                    <h2>
-                      Cuéntanos sobre
+                  <h2>
+                    Hablemos sobre
+                    <span>
                       tu proyecto.
-                    </h2>
+                    </span>
+                  </h2>
 
-                    <p>
-                      Selecciona el tipo de
-                      servicio que necesitas
-                      y conversemos.
-                    </p>
-                  </div>
+                  <p>
+                    Déjanos tu número y
+                    continuaremos por WhatsApp.
+                  </p>
                 </div>
 
                 <div
                   className={
-                    styles.optionList
+                    styles.service
                   }
                 >
-                  <button
-                    type="button"
-                    className={
-                      styles.optionButton
-                    }
-                    onClick={() =>
-                      handleInterest(
-                        "proyecto",
-                      )
-                    }
-                  >
-                    <div
-                      className={
-                        styles.optionIndex
-                      }
-                    >
-                      01
-                    </div>
+                  <span>
+                    TU INTERÉS
+                  </span>
 
-                    <div
-                      className={
-                        styles.optionIcon
-                      }
-                    >
-                      <HouseLineIcon
-                        size={18}
-                        weight="regular"
-                      />
-                    </div>
-
-                    <span>
-                      Desarrollar un
-                      proyecto
-                    </span>
-
-                    <ArrowRightIcon
-                      size={16}
-                      weight="regular"
-                    />
-                  </button>
-
-                  <button
-                    type="button"
-                    className={
-                      styles.optionButton
-                    }
-                    onClick={() =>
-                      handleInterest(
-                        "diseno",
-                      )
-                    }
-                  >
-                    <div
-                      className={
-                        styles.optionIndex
-                      }
-                    >
-                      02
-                    </div>
-
-                    <div
-                      className={
-                        styles.optionIcon
-                      }
-                    >
-                      <CompassIcon
-                        size={18}
-                        weight="regular"
-                      />
-                    </div>
-
-                    <span>
-                      Diseño y
-                      arquitectura
-                    </span>
-
-                    <ArrowRightIcon
-                      size={16}
-                      weight="regular"
-                    />
-                  </button>
-
-                  <button
-                    type="button"
-                    className={
-                      styles.optionButton
-                    }
-                    onClick={() =>
-                      handleInterest(
-                        "consultoria",
-                      )
-                    }
-                  >
-                    <div
-                      className={
-                        styles.optionIndex
-                      }
-                    >
-                      03
-                    </div>
-
-                    <div
-                      className={
-                        styles.optionIcon
-                      }
-                    >
-                      <CompassIcon
-                        size={18}
-                        weight="regular"
-                      />
-                    </div>
-
-                    <span>
-                      Consultoría
-                      arquitectónica
-                    </span>
-
-                    <ArrowRightIcon
-                      size={16}
-                      weight="regular"
-                    />
-                  </button>
-
-                  <button
-                    type="button"
-                    className={
-                      styles.optionButton
-                    }
-                    onClick={() =>
-                      handleInterest(
-                        "contacto",
-                      )
-                    }
-                  >
-                    <div
-                      className={
-                        styles.optionIndex
-                      }
-                    >
-                      04
-                    </div>
-
-                    <div
-                      className={
-                        styles.optionIcon
-                      }
-                    >
-                      <ChatCircleDotsIcon
-                        size={18}
-                        weight="regular"
-                      />
-                    </div>
-
-                    <span>
-                      Hablar con Darkham
-                    </span>
-
-                    <ArrowRightIcon
-                      size={16}
-                      weight="regular"
-                    />
-                  </button>
-                </div>
-              </>
-            )}
-
-            {/* ===============================
-                PHONE
-            =============================== */}
-
-            {step === "phone" &&
-              interest && (
-                <>
-                  <div
-                    className={
-                      styles.selectionHeader
-                    }
-                  >
-                    <span>
-                      {optionLabels[
+                  <strong>
+                    {
+                      optionLabels[
                         interest
-                      ]}
-                    </span>
+                      ]
+                    }
+                  </strong>
+                </div>
 
-                    <button
-                      type="button"
-                      onClick={
-                        resetChat
-                      }
-                    >
-                      Cambiar
-                    </button>
-                  </div>
+                <form
+                  className={
+                    styles.form
+                  }
+                  onSubmit={
+                    handleSubmit
+                  }
+                >
+                  <label
+                    htmlFor="darkham-phone"
+                    className={
+                      styles.label
+                    }
+                  >
+                    NÚMERO CELULAR
+                  </label>
 
                   <div
-                    className={
-                      styles.messageGroup
-                    }
+                    className={`${styles.phoneField} ${
+                      phoneError
+                        ? styles.phoneFieldError
+                        : ""
+                    }`}
                   >
                     <span
                       className={
-                        styles.messageBubble
+                        styles.country
                       }
                     >
-                      Para continuar,
-                      déjanos tu número
-                      celular. Nos pondremos
-                      en contacto contigo por
-                      WhatsApp.
+                      +51
                     </span>
+
+                    <span
+                      className={
+                        styles.fieldDivider
+                      }
+                    />
+
+                    <input
+                      ref={inputRef}
+                      id="darkham-phone"
+                      name="phone"
+                      type="tel"
+                      inputMode="numeric"
+                      autoComplete="tel"
+                      value={phone}
+                      onChange={(event) =>
+                        handlePhoneChange(
+                          event.target
+                            .value,
+                        )
+                      }
+                      placeholder="999 999 999"
+                      maxLength={9}
+                      aria-invalid={Boolean(
+                        phoneError,
+                      )}
+                    />
                   </div>
 
-                  <form
+                  {phoneError && (
+                    <span
+                      className={
+                        styles.error
+                      }
+                    >
+                      {phoneError}
+                    </span>
+                  )}
+
+                  <button
+                    type="submit"
                     className={
-                      styles.phoneForm
+                      styles.submit
                     }
-                    onSubmit={
-                      handleSubmit
+                    disabled={
+                      isSubmitting
                     }
                   >
-                    <label
-                      htmlFor="darkham-phone"
-                      className={
-                        styles.phoneLabel
-                      }
-                    >
-                      Número celular
-                    </label>
+                    <span>
+                      {isSubmitting
+                        ? "ABRIENDO WHATSAPP..."
+                        : "CONTINUAR POR WHATSAPP"}
+                    </span>
 
-                    <div
-                      className={`${styles.phoneInputWrap} ${
-                        phoneError
-                          ? styles.phoneInputError
-                          : ""
-                      }`}
-                    >
-                      <span
+                    {!isSubmitting && (
+                      <WhatsappLogoIcon
+                        size={20}
+                        weight="fill"
                         className={
-                          styles.countryPrefix
-                        }
-                      >
-                        +51
-                      </span>
-
-                      <input
-                        ref={inputRef}
-                        id="darkham-phone"
-                        name="phone"
-                        type="tel"
-                        inputMode="numeric"
-                        autoComplete="tel"
-                        value={phone}
-                        onChange={(
-                          event,
-                        ) =>
-                          handlePhoneChange(
-                            event.target
-                              .value,
-                          )
-                        }
-                        placeholder="999 999 999"
-                        maxLength={9}
-                        aria-invalid={
-                          Boolean(
-                            phoneError,
-                          )
+                          styles.whatsappIcon
                         }
                       />
-                    </div>
-
-                    {phoneError && (
-                      <span
-                        className={
-                          styles.errorMessage
-                        }
-                      >
-                        {phoneError}
-                      </span>
                     )}
-
-                    <button
-                      type="submit"
-                      className={
-                        styles.submitButton
-                      }
-                      disabled={
-                        isSubmitting
-                      }
-                    >
-                      <span>
-                        {isSubmitting
-                          ? "Abriendo WhatsApp..."
-                          : "Continuar por WhatsApp"}
-                      </span>
-
-                      {!isSubmitting && (
-                        <ArrowRightIcon
-                          size={16}
-                          weight="regular"
-                        />
-                      )}
-                    </button>
-                  </form>
-                </>
-              )}
-
-            {/* ===============================
-                SUCCESS
-            =============================== */}
-
-            {step === "success" && (
-              <div
-                className={
-                  styles.successState
-                }
-              >
-                <div
-                  className={
-                    styles.successIcon
-                  }
-                >
-                  <CheckCircleIcon
-                    size={31}
-                    weight="regular"
-                  />
-                </div>
-
-                <span
-                  className={
-                    styles.successEyebrow
-                  }
-                >
-                  DARKHAM STUDIO
-                </span>
-
-                <strong>
-                  Conversación preparada
-                </strong>
-
-                <p>
-                  Continúa la conversación
-                  con nosotros por
-                  WhatsApp.
-                </p>
-
-                <button
-                  type="button"
-                  className={
-                    styles.restartButton
-                  }
-                  onClick={
-                    resetChat
-                  }
-                >
-                  Nueva consulta
-                </button>
+                  </button>
+                </form>
               </div>
             )}
-          </div>
 
           {/* =================================
-              FOOTER
+              SUCCESS
           ================================= */}
 
-          <footer
-            className={
-              styles.chatFooter
-            }
-          >
-            PROFUNDIDAD · PRECISIÓN · LUZ
-          </footer>
-        </section>
-      )}
+          {step === "success" && (
+            <div
+              className={
+                styles.success
+              }
+            >
+              <div
+                className={
+                  styles.successMark
+                }
+              >
+                <WhatsappLogoIcon
+                  size={19}
+                  weight="fill"
+                />
+              </div>
+
+              <span
+                className={
+                  styles.eyebrow
+                }
+              >
+                WHATSAPP
+              </span>
+
+              <h2>
+                Estamos listos
+                <span>
+                  para conversar.
+                </span>
+              </h2>
+
+              <p>
+                Continúa la conversación
+                con nosotros por WhatsApp.
+              </p>
+
+              <button
+                type="button"
+                className={
+                  styles.restart
+                }
+                onClick={
+                  resetChat
+                }
+              >
+                NUEVA CONSULTA
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
 
       {/* =====================================
           FLOATING BUTTON
@@ -738,11 +650,13 @@ export default function FloatingActions() {
             ? styles.floatingButtonOpen
             : ""
         }`}
-        onClick={() =>
-          setIsOpen(
-            (previous) => !previous,
-          )
-        }
+        onClick={() => {
+          if (isOpen) {
+            closeChat();
+          } else {
+            setIsOpen(true);
+          }
+        }}
         aria-label={
           isOpen
             ? "Cerrar contacto"
@@ -752,34 +666,25 @@ export default function FloatingActions() {
       >
         {isOpen ? (
           <XIcon
-            size={20}
+            size={18}
             weight="regular"
           />
         ) : (
           <>
-            <div
+            <span
               className={
-                styles.floatingIcon
+                styles.floatingLabel
               }
             >
-              <ChatCircleDotsIcon
-                size={20}
-                weight="regular"
-              />
-            </div>
+              CONTACTO
+            </span>
 
             <span
               className={
-                styles.floatingText
+                styles.floatingTitle
               }
             >
-              <small>
-                ¿Tienes un proyecto?
-              </small>
-
-              <strong>
-                HABLEMOS
-              </strong>
+              HABLEMOS
             </span>
           </>
         )}

@@ -23,7 +23,7 @@ const principles = [
     number: "03",
     title: "LUZ",
     text: "La arquitectura encuentra claridad al revelar el espacio a través de la luz.",
-    image: "/media/luz.jpeg",
+    image: "/media/luz1.jpeg",
   },
 ];
 
@@ -168,9 +168,7 @@ export default function PurposeSection() {
                     onClick={() => selectPrinciple(index)}
                     aria-pressed={isActive}
                   >
-                    <span className={styles.principleNumber}>
-                      {principle.number}
-                    </span>
+                    
 
                     <span className={styles.principleText}>
                       <span className={styles.principleTitle}>
@@ -188,25 +186,6 @@ export default function PurposeSection() {
               );
             })}
           </nav>
-        </div>
-
-        {/* =====================================
-            CONTADOR
-        ===================================== */}
-
-        <div
-          className={styles.counter}
-          aria-hidden="true"
-        >
-          <span>
-            {String(activeIndex + 1).padStart(2, "0")}
-          </span>
-
-          <span className={styles.counterSlash}>/</span>
-
-          <span>
-            {String(principles.length).padStart(2, "0")}
-          </span>
         </div>
       </div>
     </section>

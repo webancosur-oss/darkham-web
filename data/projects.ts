@@ -17,7 +17,7 @@ export const projects: Project[] = [
     type: "VIVIENDA MULTIFAMILIAR",
     location: "HUANCAYO · PERÚ",
     year: "2026",
-    image: "/media/projects/moro-416.jpg",
+    image: "/media/projects/moro-416.jpeg",
     description:
       "Proyecto de vivienda multifamiliar desarrollado desde una mirada contemporánea, buscando equilibrio entre identidad, funcionalidad y relación con el entorno.",
   },
@@ -28,7 +28,7 @@ export const projects: Project[] = [
     type: "VIVIENDA MULTIFAMILIAR",
     location: "HUANCAYO · PERÚ",
     year: "2026",
-    image: "/media/projects/neo-rivera.jpg",
+    image: "/media/projects/neo-rivera.png",
     description:
       "Proyecto residencial concebido desde una visión orientada al bienestar, la habitabilidad y la integración de los espacios.",
   },
@@ -39,7 +39,7 @@ export const projects: Project[] = [
     type: "ARQUITECTURA RESIDENCIAL",
     location: "HUANCAYO · PERÚ",
     year: "2026",
-    image: "/media/projects/neo-balto.jpg",
+    image: "/media/projects/neo-balto.jpeg",
     description:
       "Proyecto residencial desarrollado con una búsqueda de equilibrio entre expresión arquitectónica, funcionalidad y experiencia espacial.",
   },
@@ -50,7 +50,7 @@ export const projects: Project[] = [
     type: "VIVIENDA MULTIFAMILIAR",
     location: "HUANCAYO · PERÚ",
     year: "2026",
-    image: "/media/projects/neo-eterna.jpg",
+    image: "/media/projects/neo-eterna.jpeg",
     description:
       "Proyecto de vivienda multifamiliar planteado desde una arquitectura contemporánea, con énfasis en proporción, luz y permanencia.",
   },
